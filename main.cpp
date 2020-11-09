@@ -9,5 +9,9 @@ using namespace std;
 int main() {
     Tour t(30);
     cout << t;
+
+    cout << "HEY" << endl;
+    t.shuffle_cities();
+    cout << t;
     return 0;
 }

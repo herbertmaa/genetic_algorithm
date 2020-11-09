@@ -5,6 +5,7 @@
 #include <random>
 #include "Tour.hpp"
 #include <iostream>
+#include <algorithm>
 
 using std::cout;
 using std::endl;
@@ -36,3 +37,10 @@ ostream &operator<<(ostream &os, const Tour &t) {
         std::cout << **it;
     }
 }
+
+void Tour::shuffle_cities() {
+    auto rng = std::default_random_engine {};
+    rng.seed(time(nullptr));
+    std::shuffle(cities.begin(), cities.end(), rng);
+}
+
