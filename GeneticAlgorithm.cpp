@@ -11,31 +11,31 @@ GeneticAlgorithm::GeneticAlgorithm() {
     Tour* base_tour= new Tour(Tour::CITIES_IN_TOURS);
     Tour* new_tour = nullptr;
     double lowest_fitness = base_tour->get_fitness();
-    tours.push_back(base_tour);
+    tours.push(base_tour);
     for(int i = 0; i < POPULATION_SIZE-1; i++){
         new_tour = new Tour(*base_tour);
         new_tour->shuffle_cities();
-        tours.push_back(new_tour);
-        std::cout << "\n";
-        std::cout << *new_tour;
-        double cur_fitness = new_tour->get_fitness();
-        new_tour->mutation();
-        std::cout << *new_tour;
-        if(cur_fitness < lowest_fitness){
-            lowest_fitness = cur_fitness;
-        }
+        tours.push(new_tour);
     }
-    this->base_distance = lowest_fitness;
+    this->base_distance = tours.top()->get_fitness();
 }
 
-ostream &operator<<(ostream &os, const GeneticAlgorithm &g) {
+/**
+ * Overloaded output operator, note this overloaded method makes a copy of the original GeneticAlgorithm object
+ * As std::priority_queue does not allow iteration we make a copy and then pop() from the tour to get the output
+ * @param os - The stream to output to
+ * @param g - The GeneticAlgorithm object
+ * @return - A stream containing a list of the tours in the algorithm
+ */
+ostream &operator<<(ostream &os, GeneticAlgorithm g) {
+    //does not modify the original heap as this makes a copy
     os << "Lowest fitness so far: " << g.base_distance << std::endl;
     os << "Printing out algorithm results \n";
-    int i = 0;
-    for(auto it = g.tours.begin(); it != g.tours.end(); ++it){
-        os << "Tour: " << i << std::endl;
-        os << **it;
-        ++i;
+    while(!g.tours.empty()){
+        auto value = g.tours.top();
+        os << value->get_fitness() << "\n";
+        g.tours.pop();
+        os << *value;
     }
     return os;
 }
