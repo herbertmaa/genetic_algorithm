@@ -14,11 +14,11 @@ private:
     double improvement_factor;
     std::vector<City* > cities;
     int sequence_number = 0;
-    double fitness;
+    double fitness = 0;
 public:
     Tour(int num_cities);
+    Tour(const Tour&t);
     void shuffle_cities();
-    void get_distance_between_cities();
     void determine_fitness();
     void select_parents();
     bool contains_city(City* city);

@@ -44,3 +44,18 @@ void Tour::shuffle_cities() {
     std::shuffle(cities.begin(), cities.end(), rng);
 }
 
+
+Tour::Tour(const Tour &t) {
+    for(auto it = t.cities.begin(); it != t.cities.end(); ++it){
+        cities.push_back((*it));
+    }
+    fitness = t.fitness;
+}
+
+void Tour::determine_fitness() {
+    if(fitness == 0){
+        throw std::invalid_argument("Fitness value is 0 or has not been calculated.");
+    }
+    this->fitness = 1 / fitness * RANDOM_SEED;
+}
+

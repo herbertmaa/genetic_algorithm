@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include "City.hpp"
+#include <cmath>
 
 ostream &operator<<(ostream &os, const City &c) {
     std::stringstream ss;
@@ -13,4 +14,11 @@ ostream &operator<<(ostream &os, const City &c) {
     ss << " x: " <<  std::setw(4) << std::setfill(' ') << c.x;
     ss << " y: " << c.y << "\n";
     std::cout <<ss.str();
+}
+
+double get_distance_between_cities(const City &c1, const City &c2) {
+    double a = std::abs(c1.x - c2.x);
+    double b = std::abs(c1.y - c2.y);
+    double distance = sqrt(std::pow(a,2) + std::pow(b,2));
+    return distance;
 }
