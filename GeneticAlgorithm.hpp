@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include "Tour.hpp";
+#include "Tour.hpp"
+#include <queue>
+#include <functional>
 
 class GeneticAlgorithm{
 
@@ -13,7 +15,7 @@ public:
 
 private:
     double base_distance = 0;
-    std::vector<Tour*> tours;
-    friend ostream&operator <<(ostream&os, const GeneticAlgorithm& g);
+    std::priority_queue<Tour*, std::vector<Tour*>, std::greater<Tour*>> tours;
+    friend ostream&operator <<(ostream&os, GeneticAlgorithm g);
 
 };

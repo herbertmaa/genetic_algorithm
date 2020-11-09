@@ -5,8 +5,8 @@
 #include <random>
 #include "Tour.hpp"
 #include "City.hpp"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 using std::cout;
 using std::endl;
