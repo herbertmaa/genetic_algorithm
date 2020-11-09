@@ -20,5 +20,6 @@ public:
     City(int x, int y, string name):x(x), y(y), name(name){}
     ~City() = default;
     friend ostream&operator <<(ostream&os, const City& c);
+    friend double get_distance_between_cities(const City&c1, const City&c2);
 
 };

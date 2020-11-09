@@ -2,7 +2,16 @@
 // Created by Herbert Ma on 2020-11-08.
 //
 
-#ifndef GENETICALGORITHM_GENETICALGORITHM_HPP
-#define GENETICALGORITHM_GENETICALGORITHM_HPP
+#pragma once
 
-#endif //GENETICALGORITHM_GENETICALGORITHM_HPP
+#include "Tour.hpp";
+
+class GeneticAlgorithm{
+
+public:
+    GeneticAlgorithm();
+
+private:
+    double base_distance = 0;
+    std::vector<Tour*> tours;
+};
