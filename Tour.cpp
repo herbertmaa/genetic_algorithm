@@ -4,6 +4,7 @@
 
 #include <random>
 #include "Tour.hpp"
+#include "City.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -29,19 +30,20 @@ Tour::Tour(int num_cities) {
         ++sequence_number;
         cities.push_back(c);
     }
+    this->fitness = determine_fitness();
 }
 
 ostream &operator<<(ostream &os, const Tour &t) {
 
     for(auto it = t.cities.begin(); it != t.cities.end(); ++it){
-        std::cout << **it;
+        os << **it;
     }
+    return os;
 }
 
 void Tour::shuffle_cities() {
-    auto rng = std::default_random_engine {};
-    rng.seed(time(nullptr));
-    std::shuffle(cities.begin(), cities.end(), rng);
+    std::random_shuffle(cities.begin(), cities.end());
+    this->fitness = determine_fitness();
 }
 
 
@@ -49,13 +51,26 @@ Tour::Tour(const Tour &t) {
     for(auto it = t.cities.begin(); it != t.cities.end(); ++it){
         cities.push_back((*it));
     }
-    fitness = t.fitness;
+    this->fitness = determine_fitness();
 }
 
-void Tour::determine_fitness() {
-    if(fitness == 0){
-        throw std::invalid_argument("Fitness value is 0 or has not been calculated.");
+double Tour::determine_fitness() {
+    double total_distance = 0;
+    for(auto it = cities.begin(); it != cities.end()-1; ++it){
+        total_distance = get_distance_between_cities(**it, **(it+1));
     }
-    this->fitness = 1 / fitness * RANDOM_SEED;
+    return 1 / total_distance * RANDOM_SEED;
+}
+
+bool operator<(const Tour &t1, const Tour &t2) {
+    return (t1.fitness < t2.fitness);
+}
+
+void Tour::mutation() {
+    std::random_device rd;
+    std::uniform_int_distribution<int> d(0, cities.size() - 1);
+    auto it = cities.begin() + d(rd);
+    auto it2 = cities.begin() + d(rd);
+    std::iter_swap(it, it2);
 }
 

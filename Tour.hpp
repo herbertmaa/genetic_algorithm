@@ -15,15 +15,17 @@ private:
     std::vector<City* > cities;
     int sequence_number = 0;
     double fitness = 0;
+    double determine_fitness();
 public:
     Tour(int num_cities);
     Tour(const Tour&t);
     void shuffle_cities();
-    void determine_fitness();
     void select_parents();
     bool contains_city(City* city);
+    void mutation();
     inline double get_fitness() const {return this->fitness;};
-    inline void update_fitness(double new_fitness) { this->fitness = new_fitness;};
     friend ostream&operator <<(ostream&os, const Tour& t);
+    constexpr static int CITIES_IN_TOURS = 10;
+    friend bool operator <(const Tour& t1, const Tour& t2);
 };
 

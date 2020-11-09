@@ -14,4 +14,6 @@ public:
 private:
     double base_distance = 0;
     std::vector<Tour*> tours;
+    friend ostream&operator <<(ostream&os, const GeneticAlgorithm& g);
+
 };
