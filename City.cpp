@@ -13,7 +13,8 @@ ostream &operator<<(ostream &os, const City &c) {
     ss << std::setw(3) << std::setfill(' ') << c.name;
     ss << " x: " <<  std::setw(4) << std::setfill(' ') << c.x;
     ss << " y: " << c.y << "\n";
-    std::cout <<ss.str();
+    os <<ss.str();
+    return os;
 }
 
 double get_distance_between_cities(const City &c1, const City &c2) {
