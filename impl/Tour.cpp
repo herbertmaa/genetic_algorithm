@@ -3,8 +3,8 @@
 //
 
 #include <random>
-#include "Tour.hpp"
-#include "City.hpp"
+#include "../headers/Tour.hpp"
+#include "../headers/City.hpp"
 #include <algorithm>
 #include <iostream>
 
