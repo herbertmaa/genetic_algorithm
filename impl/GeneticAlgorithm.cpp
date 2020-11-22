@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <random>
-#include "GeneticAlgorithm.hpp"
+#include "../headers/GeneticAlgorithm.hpp"
 
 int constexpr POPULATION_SIZE = 5;
 
