@@ -5,25 +5,26 @@
 #pragma once
 
 #include <queue>
+#include <vector>
 #include "Tour.hpp"
 
 using std::priority_queue;
+using std::vector;
 
 typedef priority_queue<Tour*, std::vector<Tour*>, std::greater<Tour*>> queue;
 
 class ToursManager {
 private:
     static constexpr int PARENT_POOL_SIZE = 5;
-    static constexpr int NUMBER_OF_PARENTS = 20;
+    static constexpr int NUMBER_OF_PARENTS = 2;
     static constexpr int POPULATION_SIZE = 32;
 
     double base_distance = 0;
 
     queue base_tours;
 
-    queue get_parent_subset();
-    queue generate_merged_tours();
-    Tour * cross(Tour * parents[NUMBER_OF_PARENTS]);
+    queue get_parent_subset(const vector<Tour *>& tours);
+    void generate_merged_tours(queue& tours);
 
 public:
     ToursManager() = default;

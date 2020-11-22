@@ -14,11 +14,13 @@ private:
     int x; // longitude
     int y; // latitude
     string name;
-public:
-    static constexpr int max_range = 1000;
-    static constexpr int min_range = 0;
 
-    City(int x, int y, string name):x(x), y(y), name(name){}
+    void check_coords();
+public:
+    static constexpr int MAX_RANGE = 1000;
+    static constexpr int MIN_RANGE = 0;
+
+    City(int x, int y, string name);
 
     inline int get_x() { return x; }
     inline int get_y() { return y; }
