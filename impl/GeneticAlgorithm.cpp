@@ -60,6 +60,43 @@ Tour* GeneticAlgorithm::crossover(const Tour &t1, const Tour &t2) {
     return new_tour;
 }
 
+void GeneticAlgorithm::pickAndMutate(double mutation_rate) {
+
+    // Note this function will irrevocably modify the priority queue.
+
+    // Get a reference to the elite tour, do not mutate this one.
+
+    Tour* elite = tours.top();
+    tours.pop();
+
+    // Create a new tour list
+    std::priority_queue<Tour*, std::vector<Tour*>, Comparator> newTours;
+
+    // Random number generator
+    std::mt19937 e{std::random_device{}()};
+    std::uniform_real_distribution<double> dist(0, 1.00);
+
+    while(!tours.empty()){
+        Tour* tour = tours.top();
+        tours.pop();
+        if(dist(e) > mutation_rate){
+            tour->mutation(); // Only mutate the tour if the value generated is greater than the mutation rate supplied
+        }
+        newTours.push(tour);
+    }
+
+    newTours.push(elite);
+
+    tours = newTours; // copy all the pointers into our tours object
+
+}
+
+
+//TODO
+//pickAndMutate(priority_queue, percentage){
+//    // tours from it.begin() +1 to it.end()
+//    // have a chance to mutate
+//}
 
 
 

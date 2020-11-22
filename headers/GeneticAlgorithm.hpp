@@ -18,5 +18,7 @@ private:
     double base_distance = 0;
     std::priority_queue<Tour*, std::vector<Tour*>, Comparator> tours;
     friend ostream&operator <<(ostream&os, GeneticAlgorithm g);
+
+    void pickAndMutate(double mutation_rate);
     Tour* crossover(const Tour& t1, const Tour& t2);
 };

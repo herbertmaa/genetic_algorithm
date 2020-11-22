@@ -20,11 +20,11 @@ constexpr double MUTATION_RATE = 0.15;
 constexpr int NUMBER_OF_ELITES = 1;
 
 Tour::Tour(int num_cities) {
-    std::mt19937 eng{RANDOM_SEED};
+    std::mt19937 e{std::random_device{}()};
     std::uniform_int_distribution<int> dist{City::min_range, City::max_range};
 
     for (int i = 0; i < num_cities; i++) {
-        City *c = new City(dist(eng), dist(eng), "C" + std::to_string(sequence_number));
+        City *c = new City(dist(e), dist(e), "C" + std::to_string(sequence_number));
         ++sequence_number;
         cities.push_back(c);
     }
@@ -68,12 +68,29 @@ bool Tour::operator<(const Tour &t2) const {
 }
 
 
+
+
+//update this to accoutn for it.begin()
+// it.end() // coin toss
+
 void Tour::mutation() {
-    std::random_device rd;
-    std::uniform_int_distribution<int> d(0, cities.size() - 1);
-    auto it = cities.begin() + d(rd);
-    auto it2 = cities.begin() + d(rd);
-    std::iter_swap(it, it2);
+
+
+    // Random number generator
+    std::mt19937 e{std::random_device{}()};
+    std::uniform_int_distribution<int> dist(0, cities.size() - 1);
+
+    // Get a random iterator pointing to a city in the tour
+    auto it = cities.begin() + dist(e);
+
+    // If the random iterator is at the end, swap it with the element right before it
+    if (it == cities.end() - 1) {
+        iter_swap(it, it - 1);
+    } else {
+        iter_swap(it, it + 1);
+    }
+
+    // Redetermine the fitness of the tour
     this->fitness = determine_fitness();
 }
 
@@ -82,6 +99,14 @@ Tour &Tour::operator=(Tour assignment) {
     cities = assignment.cities; // assigns all pointers in deque to point to the values in assignment.cities
     fitness = assignment.fitness; // assigns the fitness of the tour to the fitness of the assignment tour
     return *this;
+}
+
+double Tour::getDistance() const {
+
+    if (fitness != 0) {
+        return RANDOM_SEED / fitness;
+    }
+    throw std::overflow_error("Fitness value is equal to 0");
 }
 
 

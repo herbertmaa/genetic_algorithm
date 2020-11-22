@@ -29,8 +29,6 @@ public:
     friend ostream&operator <<(ostream&os, const Tour& t);
     constexpr static int CITIES_IN_TOURS = 10;
     bool operator < (const Tour& t2) const;
-    void insert_city_front(City * city);
-    void insert_city_back(City * city);
-
+    double getDistance() const;
 };
 
