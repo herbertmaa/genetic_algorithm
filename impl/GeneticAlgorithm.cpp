@@ -85,7 +85,7 @@ void GeneticAlgorithm::pickAndMutate(double mutation_rate) {
         newTours.push(tour);
     }
 
-    newTours.push(elite);
+    newTours.push(elite); // Put the elite into new tour list
 
     tours = newTours; // copy all the pointers into our tours object
 
