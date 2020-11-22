@@ -44,7 +44,6 @@ void Tour::shuffle_cities() {
     this->fitness = determine_fitness();
 }
 
-
 Tour::Tour(const Tour &t) {
     for (auto it = t.cities.begin(); it != t.cities.end(); ++it) {
         cities.push_back((*it));
@@ -67,12 +66,6 @@ bool Tour::operator<(const Tour &t2) const {
     return (this->fitness < t2.fitness);
 }
 
-
-
-
-//update this to accoutn for it.begin()
-// it.end() // coin toss
-
 void Tour::mutation() {
 
 
@@ -93,7 +86,6 @@ void Tour::mutation() {
     // Redetermine the fitness of the tour
     this->fitness = determine_fitness();
 }
-
 
 Tour &Tour::operator=(Tour assignment) {
     cities = assignment.cities; // assigns all pointers in deque to point to the values in assignment.cities
