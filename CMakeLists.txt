@@ -13,6 +13,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(GeneticAlgorithm main.cpp impl/City.cpp headers/City.hpp impl/Tour.cpp headers/Tour.hpp impl/GeneticAlgorithm.cpp headers/GeneticAlgorithm.hpp test/City.cpp)
+add_executable(GeneticAlgorithm main.cpp impl/City.cpp headers/City.hpp impl/Tour.cpp headers/Tour.hpp headers/Comparator.hpp headers/GeneticAlgorithm.hpp impl/GeneticAlgorithm.cpp test/City.cpp )
 
 target_link_libraries(GeneticAlgorithm Catch2::Catch2)

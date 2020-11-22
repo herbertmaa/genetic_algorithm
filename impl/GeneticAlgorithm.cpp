@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <random>
 #include "../headers/GeneticAlgorithm.hpp"
 
 int constexpr POPULATION_SIZE = 5;
@@ -39,5 +40,26 @@ ostream &operator<<(ostream &os, GeneticAlgorithm g) {
     }
     return os;
 }
+
+Tour* GeneticAlgorithm::crossover(const Tour &t1, const Tour &t2) {
+
+    Tour* new_tour = new Tour{}; //make a copy of T1
+    std::random_device rd;
+
+    std::uniform_int_distribution<int> begin(0, t1.num_cities()-1);
+    int end_offset = begin(rd); // the ending index of T1 to grab cities from
+
+
+//    if(begin_offset == end_offset){
+//        new_tour->insert_city_front(t1.)
+//    }else{
+//
+//    }
+
+
+    return new_tour;
+}
+
+
 
 

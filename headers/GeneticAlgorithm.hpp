@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Tour.hpp"
+#include "Comparator.hpp"
 #include <queue>
 #include <functional>
 
@@ -15,7 +16,7 @@ public:
 
 private:
     double base_distance = 0;
-    std::priority_queue<Tour*, std::vector<Tour*>, std::greater<Tour*>> tours;
+    std::priority_queue<Tour*, std::vector<Tour*>, Comparator> tours;
     friend ostream&operator <<(ostream&os, GeneticAlgorithm g);
-
+    Tour* crossover(const Tour& t1, const Tour& t2);
 };
