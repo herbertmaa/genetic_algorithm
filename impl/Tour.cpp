@@ -15,7 +15,6 @@ constexpr int SHUFFLES = 64;
 constexpr int ITERATIONS = 1000;
 constexpr int MAP_BOUNDARY = 1000;
 constexpr int PARENT_POOL_SIZE = 5;
-constexpr double MUTATION_RATE = 0.15;
 constexpr int NUMBER_OF_ELITES = 1;
 
 Tour::Tour() {

@@ -18,24 +18,17 @@ private:
     static constexpr int PARENT_POOL_SIZE = 5;
     static constexpr int NUMBER_OF_PARENTS = 2;
     static constexpr int POPULATION_SIZE = 32;
-
     double base_distance = 0;
-
     queue base_tours;
-
     queue get_parent_subset(const vector<Tour *>& tours);
 
 public:
     ToursManager() = default;
     void init();
-
     int get_elite_distance(queue tours);
     void generate_merged_tours(queue& tours);
-    void pickAndMutate(double mutation_rate);
-
-    inline queue& get_base_tours() {
-        return base_tours;
-    }
+    void pick_and_mutate(double mutation_rate);
+    inline queue& get_base_tours() { return base_tours; }
 
     ~ToursManager();
 };

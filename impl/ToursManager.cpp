@@ -65,3 +65,24 @@ ToursManager::~ToursManager() {
         base_tours.pop();
     }
 }
+
+void ToursManager::pick_and_mutate(double mutation_rate) {
+    //keep the implementation of mutate in tours otherwise you need a getter to the list of cities
+    std::mt19937 e{std::random_device{}()};
+    std::uniform_real_distribution<double> dist(0, 1);
+
+    queue new_tours;
+    Tour* elite = base_tours.top();
+    while(!base_tours.empty()){
+        double rand = dist(e);
+        Tour* current = base_tours.top();
+        base_tours.pop();
+        if(rand > Tour::MUTATION_RATE){
+            current->mutation();
+        }
+        new_tours.push(current);
+    }
+    new_tours.push(elite);
+    base_tours = new_tours;
+}
+
