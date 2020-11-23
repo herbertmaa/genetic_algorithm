@@ -23,7 +23,7 @@ double ToursManager::get_elite_fitness() const {
     return base_tours.top()->get_fitness();
 }
 
-queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
+Tour * ToursManager::get_parent(const vector<Tour *>& tours) {
     queue parents;
     std::random_device rd;
     std::mt19937 eng{rd()};
@@ -32,31 +32,33 @@ queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
         int rand = dist(eng);
         parents.push(tours.at(rand)); //potential for picking yourself, but okay for now?
     }
-    return parents;
+    return parents.top();
 }
 
-void ToursManager::generate_merged_tours(queue& tours) {
+void ToursManager::cross_tours() {
     vector<Tour *> temp;
-    Tour* fittest = tours.top();
-    tours.pop();
 
-    while (!tours.empty()) {
-        temp.push_back(tours.top());
-        tours.pop();
+    Tour * fittest = base_tours.top();
+
+    base_tours.pop();
+
+    while (!base_tours.empty()) {
+        temp.push_back(base_tours.top());
+        base_tours.pop();
     }
 
     for (int i = 0; i < NUMBER_OF_TOURS - 1; ++i) {
         Tour* parents[NUMBER_OF_PARENTS];
         for (int i = 0; i < NUMBER_OF_PARENTS; ++i) {
-            queue parent_queue = get_parent_subset(temp);
-            parents[i] = parent_queue.top();
+            parents[i] = get_parent(temp);
         }
-//        Tour* crossed = new Tour {parents, NUMBER_OF_PARENTS};
-//        tours.push(crossed);
-    }
-    tours.push(fittest);
 
-    for (std::vector<Tour *>::iterator it = temp.begin(); it != temp.end() ; ++it) {
+        Tour * crossed = new Tour {*parents[0], *parents[1]};
+        base_tours.push(crossed);
+    }
+    base_tours.push(fittest);
+
+    for (auto it = temp.begin(); it != temp.end() ; ++it) {
         delete (*it);
         *it = nullptr;
     }
@@ -86,7 +88,10 @@ void ToursManager::pick_and_mutate(double mutation_rate) {
         new_tours.push(current);
     }
     new_tours.push(elite);
-    base_tours = new_tours;
+    while (!new_tours.empty()) {
+        base_tours.push(new_tours.top());
+        new_tours.pop();
+    }
 }
 
 ToursManager::ToursManager() {
@@ -100,17 +105,4 @@ void ToursManager::print_tours() const{
         temp.pop();
     }
 }
-
-void ToursManager::crossandtoss() {
-
-    Tour* p1 = base_tours.top();
-    base_tours.pop();
-    Tour *p2 = base_tours.top();
-    Tour* newTour = new Tour{*p1, *p2};
-
-    std::cout << "new child" << std::endl;
-    std::cout << *newTour << std::endl;
-
-}
-
 

@@ -38,12 +38,8 @@ Tour::Tour(const Tour &t1, const Tour &t2) {
 
 }
 ostream &operator<<(ostream &os, const Tour &t) {
-    os << "TODO remove this print out, in Tour.cpp" << endl;
     os << t.get_total_distance() << endl;
     os << t.get_fitness() << endl;
-    for (auto it = t.cities.begin(); it != t.cities.end(); ++it) {
-        os << **it;
-    }
     return os;
 }
 
@@ -68,16 +64,19 @@ bool Tour::operator<(const Tour &t2) const {
 }
 
 void Tour::mutation() {
-
     // Random number generator
     std::mt19937 e{std::random_device{}()};
-    std::uniform_int_distribution<int> dist(0, cities.size() - 1);
+    std::uniform_int_distribution<int> dist(0, CityList::CITIES_IN_TOUR - 1);
 
     // Get a random iterator pointing to a city in the tour
 
     // Random number
     int rand = dist(e);
     auto it = cities.begin() + rand;
+
+    if (it < cities.begin() || it >= cities.end()) {
+        return;
+    }
 
     // Check for cases of the iterator being at the beginning or the end
     if (it == cities.end() - 1) {
