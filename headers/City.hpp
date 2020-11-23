@@ -16,11 +16,14 @@ private:
     string name;
 
     void check_coords();
+    void swap(City& lhs, City& rhs);
 public:
     static constexpr int MAX_RANGE = 1000;
     static constexpr int MIN_RANGE = 0;
 
     City(int x, int y, string name);
+    City(const City& city);
+    City& operator=(City city);
 
     inline int get_x() { return x; }
     inline int get_y() { return y; }

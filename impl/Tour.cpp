@@ -33,21 +33,29 @@ Tour::Tour(const Tour &t1, const Tour &t2) {
             cities.push_back(*it);
         }
     }
-
-    fitness = determine_fitness();
-
+    this->determine_fitness();
 }
+
+Tour::Tour(const Tour &t) {
+    cities = vector<City *> {t.cities.begin(), t.cities.end()};
+    fitness = t.fitness;
+    total_distance = t.total_distance;
+    this->determine_fitness();
+}
+
+
+void Tour::swap(Tour &lhs, Tour &rhs) {
+    using std::swap;
+
+    lhs.cities.swap(rhs.cities);
+    swap(lhs.fitness, rhs.fitness);
+    swap(lhs.total_distance, rhs.total_distance);
+}
+
 ostream &operator<<(ostream &os, const Tour &t) {
     os << t.get_total_distance() << endl;
     os << t.get_fitness() << endl;
     return os;
-}
-
-Tour::Tour(const Tour &t) {
-    for (auto it = t.cities.begin(); it != t.cities.end(); ++it) {
-        cities.push_back((*it));
-    }
-    this->fitness = determine_fitness();
 }
 
 double Tour::determine_fitness() {
@@ -94,8 +102,7 @@ void Tour::mutation() {
 }
 
 Tour &Tour::operator=(Tour assignment) {
-    cities = assignment.cities; // assigns all pointers in deque to point to the values in assignment.cities
-    fitness = assignment.fitness; // assigns the fitness of the tour to the fitness of the assignment tour
+    swap(*this, assignment);
     return *this;
 }
 
@@ -108,15 +115,14 @@ void Tour::gen_random_cities() {
     cities = CityList::get_instance()->shuffle();
     determine_fitness();
 }
+bool Tour::contains_city(City *city) {
+    if (std::find(cities.begin(), cities.end(), city) == cities.end()) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 Tour::~Tour() {
     cities.clear();
-}
-
-bool Tour::contains_city(City *city) {
-    if (std::find(cities.begin(), cities.end(), city) == cities.end()){
-        return false;
-    }else{
-        return true;
-    }
 }

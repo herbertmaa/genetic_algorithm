@@ -13,6 +13,25 @@ City::City(int x, int y, string name): x(x), y(y), name(name) {
     check_coords();
 }
 
+City::City(const City &city) {
+    x = city.x;
+    y = city.y;
+    name = city.name;
+}
+
+City & City::operator=(City city) {
+    swap(*this, city);
+    return *this;
+}
+
+void City::swap(City &lhs, City &rhs) {
+    using std::swap;
+
+    swap(lhs.x, rhs.x);
+    swap(lhs.y, rhs.y);
+    swap(lhs.name, rhs.name);
+}
+
 void City::check_coords() {
     if (x <= MIN_RANGE || x >= MAX_RANGE || y <= MIN_RANGE || y >= MAX_RANGE) {
         throw std::invalid_argument("Coordinates must be within" + ::to_string(MIN_RANGE) + " and " + ::to_string(MAX_RANGE));
