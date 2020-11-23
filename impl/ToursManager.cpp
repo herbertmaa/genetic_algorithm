@@ -22,9 +22,10 @@ queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
     queue parents;
     std::random_device rd;
     std::mt19937 eng{rd()};
-    std::uniform_int_distribution<int> dist{0, CityList::CITIES_IN_TOUR - 1};
+    std::uniform_int_distribution<int> dist{0, POPULATION_SIZE - 2};
     for (int i = 0; i < PARENT_POOL_SIZE; ++i) {
-        parents.push(tours.at(i));
+        int rand = dist(eng);
+        parents.push(tours.at(rand));
     }
     return parents;
 }
@@ -50,6 +51,11 @@ void ToursManager::generate_merged_tours(queue& tours) {
         tours.push(crossed);
     }
     tours.push(fittest);
+
+    for (auto it = temp.begin(); it != temp.end() ; ++it) {
+        delete (*it);
+        *it = nullptr;
+    }
 }
 
 

@@ -33,10 +33,10 @@ Tour::Tour(Tour **tours) {
             }
         }
     }
+    this->fitness=determine_fitness();
 }
 
 ostream &operator<<(ostream &os, const Tour &t) {
-
     for (auto it = t.cities.begin(); it != t.cities.end(); ++it) {
         os << **it;
     }
@@ -84,7 +84,5 @@ void Tour::gen_random_cities() {
 }
 
 Tour::~Tour() {
-    for (auto it = cities.begin(); it != cities.end(); ++it) {
-        *it = nullptr;
-    }
+    cities.clear();
 }

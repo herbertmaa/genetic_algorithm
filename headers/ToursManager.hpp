@@ -24,15 +24,15 @@ private:
     queue base_tours;
 
     queue get_parent_subset(const vector<Tour *>& tours);
-    void generate_merged_tours(queue& tours);
 
 public:
     ToursManager() = default;
     void init();
 
     int get_elite_distance(queue tours);
+    void generate_merged_tours(queue& tours);
 
-    inline queue get_base_tours() {
+    inline queue& get_base_tours() {
         return base_tours;
     }
 

@@ -23,12 +23,18 @@ ostream &operator<<(ostream &os, GeneticAlgorithm g) {
     os << "Lowest distance so far: " << g.base_distance << std::endl;
     os << "Printing out algorithm results \n";
     queue tours = g.manager.get_base_tours();
-    while(!tours.empty()){
-        auto value = tours.top();
-        os << value->get_total_distance() << "\n";
-        tours.pop();
-        os << *value;
-    }
+//    while(!tours.empty()){
+    auto value = tours.top();
+    os << value->get_total_distance() << "\n";
+    tours.pop();
+    os << *value;
+
+    g.manager.generate_merged_tours(g.manager.get_base_tours());
+    value = g.manager.get_base_tours().top();
+    os << value->get_total_distance() << "\n";
+    tours.pop();
+    os << *value;
+//    }
     return os;
 }
 
