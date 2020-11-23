@@ -12,7 +12,6 @@ using std::cout;
 using std::endl;
 
 constexpr int SHUFFLES = 64;
-constexpr int ITERATIONS = 1000;
 constexpr int MAP_BOUNDARY = 1000;
 constexpr int PARENT_POOL_SIZE = 5;
 constexpr int NUMBER_OF_ELITES = 1;
@@ -35,6 +34,9 @@ Tour::Tour(Tour **tours) {
 }
 
 ostream &operator<<(ostream &os, const Tour &t) {
+    os << "TODO remove this print out, in Tour.cpp" << endl;
+    os << t.get_total_distance() << endl;
+    os << t.get_fitness() << endl;
     for (auto it = t.cities.begin(); it != t.cities.end(); ++it) {
         os << **it;
     }
@@ -94,7 +96,7 @@ Tour &Tour::operator=(Tour assignment) {
     return *this;
 }
 
-double Tour::getDistance() const {
+double Tour::get_fitness() const {
 
     if (fitness != 0) {
         return  CityList::RANDOM_SEED / fitness;

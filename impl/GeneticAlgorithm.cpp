@@ -6,9 +6,12 @@
 #include <random>
 #include "../headers/GeneticAlgorithm.hpp"
 
+using namespace std;
+
 GeneticAlgorithm::GeneticAlgorithm() {
-    manager.init();
-    this->base_distance = manager.get_elite_distance(manager.get_base_tours());
+    manager = new ToursManager();
+    this->base_fitness = manager->get_elite_fitness();
+    manager->print_tours();
 }
 
 /**
@@ -20,24 +23,33 @@ GeneticAlgorithm::GeneticAlgorithm() {
  */
 ostream &operator<<(ostream &os, GeneticAlgorithm g) {
     //does not modify the original heap as this makes a copy
-    os << "Lowest distance so far: " << g.base_distance << std::endl;
-    os << "Printing out algorithm results \n";
-    queue tours = g.manager.get_base_tours();
-//    while(!tours.empty()){
-    auto value = tours.top();
-    os << value->get_total_distance() << "\n";
-    tours.pop();
-    os << *value;
+//    os << "Lowest distance so far: " << g.base_distance << std::endl;
+//    os << "Printing out algorithm results \n";
+//    queue tours = g.manager.get_base_tours();
 
-    g.manager.generate_merged_tours(g.manager.get_base_tours());
-    value = g.manager.get_base_tours().top();
-    os << value->get_total_distance() << "\n";
-    tours.pop();
-    os << *value;
-//    }
+//
+//    g.manager.generate_merged_tours(g.manager.get_base_tours());
+//    value = g.manager.get_base_tours().top();
+//    os << value->get_total_distance() << "\n";
+//    tours.pop();
+//    os << *value;
+////    }
     return os;
 }
 
 GeneticAlgorithm::~GeneticAlgorithm() {
 
+
+
+}
+
+void GeneticAlgorithm::run() {
+
+    this->manager;
+    int iterations = 0;
+    int improvement_factor = 0;
+
+    while(base_fitness < improvement_factor || iterations < GeneticAlgorithm::ITERATIONS){
+
+    }
 }

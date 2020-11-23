@@ -4,6 +4,7 @@
 
 #include <random>
 #include <algorithm>
+#include <iostream>
 #include "../headers/ToursManager.hpp"
 #include "../headers/CityList.hpp"
 
@@ -14,8 +15,12 @@ void ToursManager::init() {
     }
 }
 
-int ToursManager::get_elite_distance(queue tours) {
-    return tours.top()->get_total_distance();
+double ToursManager::get_elite_distance() const {
+    return base_tours.top()->get_total_distance();
+}
+
+double ToursManager::get_elite_fitness() const {
+    return base_tours.top()->get_fitness();
 }
 
 queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
@@ -58,7 +63,6 @@ void ToursManager::generate_merged_tours(queue& tours) {
     }
 }
 
-
 ToursManager::~ToursManager() {
     while (!base_tours.empty()) {
         delete base_tours.top();
@@ -85,4 +89,18 @@ void ToursManager::pick_and_mutate(double mutation_rate) {
     new_tours.push(elite);
     base_tours = new_tours;
 }
+
+ToursManager::ToursManager() {
+    init();
+}
+
+void ToursManager::print_tours() const{
+
+    queue temp = this->base_tours;
+    while(!temp.empty()){
+        std::cout << *(temp.top()) << std::endl;
+        temp.pop();
+    }
+}
+
 
