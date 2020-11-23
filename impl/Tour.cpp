@@ -21,18 +21,22 @@ Tour::Tour() {
     this->fitness = determine_fitness();
 }
 
-Tour::Tour(Tour **tours) {
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < CityList::CITIES_IN_TOUR; ++j) {
-            City * to_add = tours[i]->cities.at(j);
-            if (std::find(cities.begin(), cities.end(), to_add) != cities.end()) {
-                cities.push_back(to_add);
-            }
+Tour::Tour(const Tour &t1, const Tour &t2) {
+
+    std::mt19937 e{std::random_device{}()};
+    std::uniform_int_distribution<int> dist{0, Tour::CITIES_IN_TOURS-1};
+
+    cities = vector<City*> (t1.cities.begin(), t1.cities.begin() + dist(e));
+
+    for(auto it = t2.cities.begin(); it != t2.cities.end(); ++it) {
+        if (!contains_city(*it)) {
+            cities.push_back(*it);
         }
     }
-    this->fitness=determine_fitness();
-}
 
+    fitness = determine_fitness();
+
+}
 ostream &operator<<(ostream &os, const Tour &t) {
     os << "TODO remove this print out, in Tour.cpp" << endl;
     os << t.get_total_distance() << endl;
@@ -97,17 +101,23 @@ Tour &Tour::operator=(Tour assignment) {
 }
 
 double Tour::get_fitness() const {
-
-    if (fitness != 0) {
-        return  CityList::RANDOM_SEED / fitness;
-    }
+    if (fitness != 0) return fitness;
     throw std::overflow_error("Fitness value is equal to 0");
 }
 
 void Tour::gen_random_cities() {
     cities = CityList::get_instance()->shuffle();
+    determine_fitness();
 }
 
 Tour::~Tour() {
     cities.clear();
+}
+
+bool Tour::contains_city(City *city) {
+    if (std::find(cities.begin(), cities.end(), city) == cities.end()){
+        return false;
+    }else{
+        return true;
+    }
 }

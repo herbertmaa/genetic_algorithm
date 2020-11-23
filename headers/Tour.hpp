@@ -19,19 +19,18 @@ private:
     void gen_random_cities();
 
 public:
-    constexpr static int CITIES_IN_TOURS = 10;
+    constexpr static int CITIES_IN_TOURS = 5;
     constexpr static double MUTATION_RATE = 0.20;
 
     Tour();
-    Tour(Tour * tours[2]); // don't think we should hardcode something like this
     ~Tour();
-
+    Tour(const Tour& t1, const Tour& t2);
     Tour& operator=(Tour assignment);
     bool contains_city(City* city); //TODO unused atm, but assignment has this method?
     void mutation();
     Tour(const Tour &t);
     inline int num_cities() const { return this->cities.size(); };
-    inline double get_fitness() const;
+    double get_fitness() const;
     inline double get_total_distance() const {return this->total_distance;};
     friend ostream&operator <<(ostream&os, const Tour& t);
     bool operator < (const Tour& t2) const;

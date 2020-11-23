@@ -12,6 +12,7 @@ GeneticAlgorithm::GeneticAlgorithm() {
     manager = new ToursManager();
     this->base_fitness = manager->get_elite_fitness();
     manager->print_tours();
+    run();
 }
 
 /**
@@ -45,11 +46,17 @@ GeneticAlgorithm::~GeneticAlgorithm() {
 
 void GeneticAlgorithm::run() {
 
-    this->manager;
     int iterations = 0;
-    int improvement_factor = 0;
+    double desired_fitness = 1000.00; //TODO hardcoded for now
 
-    while(base_fitness < improvement_factor || iterations < GeneticAlgorithm::ITERATIONS){
-
-    }
+//    this->manager->generate_merged_tours(this->manager->base_tours);
+    manager->crossandtoss();
+//    manager->print_tours();
+//    while(base_fitness < desired_fitness || iterations < GeneticAlgorithm::ITERATIONS){
+//
+//        this->manager->crossandtoss();
+//        this->manager->pick_and_mutate(Tour::MUTATION_RATE);
+//
+//        ++iterations;
+//    }
 }

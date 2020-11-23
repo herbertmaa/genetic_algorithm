@@ -27,13 +27,6 @@ void CityList::reset_instance() {
     CityList::instance = nullptr;
 }
 
-City * CityList::get_city(int n) {
-    get_instance();
-    if (n < 0 || n > instance->cities.size() - 1) {
-        throw std::invalid_argument("Invalid index");
-    }
-    return instance->cities.at(n);
-}
 
 CityList::~CityList() {
     for (auto it = cities.begin(); it != cities.end(); it++) {

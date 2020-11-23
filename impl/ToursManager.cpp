@@ -9,7 +9,7 @@
 #include "../headers/CityList.hpp"
 
 void ToursManager::init() {
-    for (int i = 0; i < POPULATION_SIZE; ++i) {
+    for (int i = 0; i < NUMBER_OF_TOURS; ++i) {
         Tour* base_tour= new Tour();
         base_tours.push(base_tour);
     }
@@ -27,18 +27,17 @@ queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
     queue parents;
     std::random_device rd;
     std::mt19937 eng{rd()};
-    std::uniform_int_distribution<int> dist{0, POPULATION_SIZE - 2};
+    std::uniform_int_distribution<int> dist{0, NUMBER_OF_TOURS - 2};
     for (int i = 0; i < PARENT_POOL_SIZE; ++i) {
         int rand = dist(eng);
-        parents.push(tours.at(rand));
+        parents.push(tours.at(rand)); //potential for picking yourself, but okay for now?
     }
     return parents;
 }
 
 void ToursManager::generate_merged_tours(queue& tours) {
     vector<Tour *> temp;
-    Tour * fittest = tours.top();
-
+    Tour* fittest = tours.top();
     tours.pop();
 
     while (!tours.empty()) {
@@ -46,18 +45,18 @@ void ToursManager::generate_merged_tours(queue& tours) {
         tours.pop();
     }
 
-    for (int i = 0; i < POPULATION_SIZE - 1; ++i) {
-        Tour * parents[NUMBER_OF_PARENTS];
+    for (int i = 0; i < NUMBER_OF_TOURS - 1; ++i) {
+        Tour* parents[NUMBER_OF_PARENTS];
         for (int i = 0; i < NUMBER_OF_PARENTS; ++i) {
             queue parent_queue = get_parent_subset(temp);
             parents[i] = parent_queue.top();
         }
-        Tour * crossed = new Tour {parents};
-        tours.push(crossed);
+//        Tour* crossed = new Tour {parents, NUMBER_OF_PARENTS};
+//        tours.push(crossed);
     }
     tours.push(fittest);
 
-    for (auto it = temp.begin(); it != temp.end() ; ++it) {
+    for (std::vector<Tour *>::iterator it = temp.begin(); it != temp.end() ; ++it) {
         delete (*it);
         *it = nullptr;
     }
@@ -95,12 +94,23 @@ ToursManager::ToursManager() {
 }
 
 void ToursManager::print_tours() const{
-
     queue temp = this->base_tours;
     while(!temp.empty()){
         std::cout << *(temp.top()) << std::endl;
         temp.pop();
     }
+}
+
+void ToursManager::crossandtoss() {
+
+    Tour* p1 = base_tours.top();
+    base_tours.pop();
+    Tour *p2 = base_tours.top();
+    Tour* newTour = new Tour{*p1, *p2};
+
+    std::cout << "new child" << std::endl;
+    std::cout << *newTour << std::endl;
+
 }
 
 

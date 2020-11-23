@@ -18,20 +18,20 @@ class ToursManager {
 private:
     static constexpr int PARENT_POOL_SIZE = 5;
     static constexpr int NUMBER_OF_PARENTS = 2;
-    static constexpr int POPULATION_SIZE = 32;
+    static constexpr int NUMBER_OF_TOURS = 5;
     void init();
     double base_distance = 0;
-    queue base_tours;
-    queue get_parent_subset(const vector<Tour *>& tours);
+    inline queue& get_base_tours() { return base_tours; }
 
 public:
+    queue base_tours;
     ToursManager();
     double get_elite_fitness() const;
     double get_elite_distance() const;
     void print_tours() const;
-    void generate_merged_tours(queue& tours);
     void pick_and_mutate(double mutation_rate);
-    inline queue& get_base_tours() { return base_tours; }
-
+    queue get_parent_subset(const vector<Tour *>& tours);
+    void generate_merged_tours(queue& tours);
     ~ToursManager();
+    void crossandtoss();
 };
