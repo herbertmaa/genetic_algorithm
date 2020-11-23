@@ -7,6 +7,18 @@
 #include "../headers/City.hpp"
 #include <cmath>
 
+using std::to_string;
+
+City::City(int x, int y, string name): x(x), y(y), name(name) {
+    check_coords();
+}
+
+void City::check_coords() {
+    if (x <= MIN_RANGE || x >= MAX_RANGE || y <= MIN_RANGE || y >= MAX_RANGE) {
+        throw std::invalid_argument("Coordinates must be within" + ::to_string(MIN_RANGE) + " and " + ::to_string(MAX_RANGE));
+    }
+}
+
 ostream &operator<<(ostream &os, const City &c) {
     std::stringstream ss;
     ss.setf(std::ios_base::left);
@@ -18,8 +30,8 @@ ostream &operator<<(ostream &os, const City &c) {
 }
 
 double get_distance_between_cities(const City &c1, const City &c2) {
-    double a = std::abs(c1.x - c2.x);
-    double b = std::abs(c1.y - c2.y);
+    double a = c1.x - c2.x;
+    double b = c1.y - c2.y;
     double distance = sqrt(std::pow(a,2) + std::pow(b,2));
     return distance;
 }

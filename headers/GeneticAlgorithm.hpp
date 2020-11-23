@@ -6,17 +6,18 @@
 
 #include "Tour.hpp"
 #include "Comparator.hpp"
+#include "ToursManager.hpp"
+
 #include <queue>
 #include <functional>
 
 class GeneticAlgorithm{
 
-public:
-    GeneticAlgorithm();
-
 private:
     double base_distance = 0;
-    std::priority_queue<Tour*, std::vector<Tour*>, Comparator> tours;
+    ToursManager manager; // probably should be a pointer?
+public:
+    GeneticAlgorithm();
+    ~GeneticAlgorithm();
     friend ostream&operator <<(ostream&os, GeneticAlgorithm g);
-    Tour* crossover(const Tour& t1, const Tour& t2);
 };
