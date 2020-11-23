@@ -68,29 +68,25 @@ bool Tour::operator<(const Tour &t2) const {
 
 void Tour::mutation() {
 
-
     // Random number generator
     std::mt19937 e{std::random_device{}()};
     std::uniform_int_distribution<int> dist(0, cities.size() - 1);
 
     // Get a random iterator pointing to a city in the tour
-    auto it = cities.begin() + dist(e);
 
-    // If the random iterator is at the end, swap it with the element right before it
+    // Random number
+    int rand = dist(e);
+    auto it = cities.begin() + rand;
+
+    // Check for cases of the iterator being at the beginning or the end
     if (it == cities.end() - 1) {
-        cout << "before swap" << endl;
-        cout << *it << endl;
         iter_swap(it, it - 1);
-        cout << "after swap" << endl;
-        cout << *it << endl;
-
-    } else {
-
-        cout << "before swap" << endl;
-        cout << *it << endl;
+    } else if (it == cities.begin()) {
         iter_swap(it, it + 1);
-        cout << "after swap" << endl;
-        cout << *it << endl;
+    } else if (rand % 2) {
+        iter_swap(it, it - 1);
+    } else {
+        iter_swap(it, it + 1);
     }
 
     // Redetermine the fitness of the tour

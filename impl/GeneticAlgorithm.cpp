@@ -63,7 +63,6 @@ Tour* GeneticAlgorithm::crossover(const Tour &t1, const Tour &t2) {
 void GeneticAlgorithm::pickAndMutate(double mutation_rate) {
 
     // Note this function will irrevocably modify the priority queue.
-
     // Get a reference to the elite tour, do not mutate this one.
 
     Tour* elite = tours.top();
@@ -84,11 +83,8 @@ void GeneticAlgorithm::pickAndMutate(double mutation_rate) {
         }
         newTours.push(tour);
     }
-
     newTours.push(elite); // Put the elite into new tour list
-
     tours = newTours; // copy all the pointers into our tours object
-
 }
 
 
