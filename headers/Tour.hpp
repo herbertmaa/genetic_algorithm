@@ -27,7 +27,7 @@ public:
     inline int num_cities() const { return this->cities.size(); };
     inline double get_fitness() const {return this->fitness;};
     friend ostream&operator <<(ostream&os, const Tour& t);
-    constexpr static int CITIES_IN_TOURS = 10;
+    constexpr static int CITIES_IN_TOURS = 3;
     bool operator < (const Tour& t2) const;
     double getDistance() const;
 };

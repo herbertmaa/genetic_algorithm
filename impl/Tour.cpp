@@ -54,7 +54,7 @@ Tour::Tour(const Tour &t) {
 double Tour::determine_fitness() {
     double total_distance = 0;
     for (auto it = cities.begin(); it != cities.end() - 1; ++it) {
-        total_distance = get_distance_between_cities(**it, **(it + 1));
+        total_distance += get_distance_between_cities(**it, **(it + 1));
     }
 
     if (total_distance == 0) throw std::invalid_argument("DIVIDING BY ZERO");
@@ -78,9 +78,19 @@ void Tour::mutation() {
 
     // If the random iterator is at the end, swap it with the element right before it
     if (it == cities.end() - 1) {
+        cout << "before swap" << endl;
+        cout << *it << endl;
         iter_swap(it, it - 1);
+        cout << "after swap" << endl;
+        cout << *it << endl;
+
     } else {
+
+        cout << "before swap" << endl;
+        cout << *it << endl;
         iter_swap(it, it + 1);
+        cout << "after swap" << endl;
+        cout << *it << endl;
     }
 
     // Redetermine the fitness of the tour

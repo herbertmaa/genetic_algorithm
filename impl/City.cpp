@@ -18,8 +18,8 @@ ostream &operator<<(ostream &os, const City &c) {
 }
 
 double get_distance_between_cities(const City &c1, const City &c2) {
-    double a = std::abs(c1.x - c2.x);
-    double b = std::abs(c1.y - c2.y);
+    double a = c1.x - c2.x;
+    double b = c1.y - c2.y;
     double distance = sqrt(std::pow(a,2) + std::pow(b,2));
     return distance;
 }
