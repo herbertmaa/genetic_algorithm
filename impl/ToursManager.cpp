@@ -52,7 +52,7 @@ void ToursManager::cross_tours() {
         for (int i = 0; i < NUMBER_OF_PARENTS; ++i) {
             parents[i] = get_parent(temp);
         }
-        Tour * crossed = new Tour {*parents[0], *parents[1]};
+        Tour * crossed = new Tour {*(parents[0]), *(parents[1])};
         base_tours.push(crossed);
     }
     base_tours.push(fittest);
