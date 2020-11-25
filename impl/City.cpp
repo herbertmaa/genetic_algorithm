@@ -8,6 +8,7 @@
 #include <cmath>
 
 using std::to_string;
+using std::swap;
 
 City::City(int x, int y, string name): x(x), y(y), name(name) {
     check_coords();
@@ -25,16 +26,15 @@ City & City::operator=(City city) {
 }
 
 void City::swap(City &lhs, City &rhs) {
-    using std::swap;
 
-    swap(lhs.x, rhs.x);
-    swap(lhs.y, rhs.y);
-    swap(lhs.name, rhs.name);
+    std::swap(lhs.x, rhs.x);
+    std::swap(lhs.y, rhs.y);
+    std::swap(lhs.name, rhs.name);
 }
 
 void City::check_coords() {
-    if (x < MIN_RANGE || x > MAX_RANGE || y < MIN_RANGE || y > MAX_RANGE) {
-        throw std::invalid_argument("Coordinates must be within" + ::to_string(MIN_RANGE) + " and " + ::to_string(MAX_RANGE));
+    if (x < MIN_MAP_BOUNDARY || x > MAX_MAP_BOUNDARY || y < MIN_MAP_BOUNDARY || y > MAX_MAP_BOUNDARY) {
+        throw std::invalid_argument("Coordinates must be within" + ::to_string(MIN_MAP_BOUNDARY) + " and " + ::to_string(MAX_MAP_BOUNDARY));
     }
 }
 
