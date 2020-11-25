@@ -3,5 +3,10 @@
 //
 
 #include "../headers/City.hpp"
+#include "catch2/catch.hpp"
+
+TEST_CASE("Checking stuff", "Checking some more stuff") {
+    CHECK(true == true);
+}
 
 
