@@ -1,8 +1,6 @@
 #include <iostream>
 #include "headers/GeneticAlgorithm.hpp"
-#include "headers/CityList.hpp"
 #include <algorithm>    // std::find
-#include <cmath>
 
 #define CATCH_CONFIG_RUNNER
 
@@ -24,7 +22,7 @@ int main(int argc, char *argv[]) {
         std::cin.get(); // Immediate feedback.
         return -1;
     }
-
+  
 //    GeneticAlgorithm g{};
     return result;
 }
