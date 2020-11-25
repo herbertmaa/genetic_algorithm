@@ -14,7 +14,6 @@ private:
     int x; // longitude
     int y; // latitude
     string name;
-
     void check_coords();
     void swap(City& lhs, City& rhs);
 public:

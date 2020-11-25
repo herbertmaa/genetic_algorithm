@@ -14,21 +14,19 @@ using std::cout;
 ToursManager::ToursManager() {
     for (int i = 0; i < NUMBER_OF_TOURS; ++i) {
         Tour *base_tour = new Tour();
-//        cout << *base_tour << endl;
         base_tours.push(base_tour);
     }
 }
 
 double ToursManager::get_elite_distance() const {
-    return base_tours.top()->get_total_distance();
+    return base_tours.top()->get_tour_distance();
 }
 
 double ToursManager::get_elite_fitness() const {
     return base_tours.top()->get_fitness();
 }
 
-Tour * ToursManager::get_parent(const vector<Tour *> &tours) {
-
+Tour *ToursManager::select_parents(const vector<Tour *> &tours) {
     // Create a queue for the parents
     queue parents;
     std::random_device rd;
@@ -45,7 +43,7 @@ Tour * ToursManager::get_parent(const vector<Tour *> &tours) {
     return parents.top();
 }
 
-void ToursManager::cross_tours() {
+void ToursManager::crossover() {
 
     // A vector containing our new tour list
     vector<Tour *> temp;
@@ -64,9 +62,9 @@ void ToursManager::cross_tours() {
         // Create a pair of parents
         std::pair<Tour *, Tour *> pair;
 
-        pair.first = get_parent(temp);
+        pair.first = select_parents(temp);
 
-        pair.second = get_parent(temp);
+        pair.second = select_parents(temp);
 
         // Cross them to make a new Tour
         Tour *crossed = new Tour{*pair.first, *pair.second};

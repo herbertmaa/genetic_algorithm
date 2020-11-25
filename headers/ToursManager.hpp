@@ -33,8 +33,8 @@ public:
     double get_elite_distance() const;
     void print_tours() const;
 
-    Tour * get_parent(const vector<Tour *>& tours);
+    Tour * select_parents(const vector<Tour *>& tours);
 
-    void cross_tours();
+    void crossover();
     void pick_and_mutate(double mutation_rate);
 };
