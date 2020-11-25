@@ -31,7 +31,7 @@ public:
     void mutation();
     inline int num_cities() const { return this->cities.size(); };
     double get_fitness() const;
-    inline double get_total_distance() const {return this->total_distance;};
+    inline double get_tour_distance() const {return this->total_distance;};
     friend ostream&operator <<(ostream&os, const Tour& t);
     bool operator < (const Tour& t2) const;
 
