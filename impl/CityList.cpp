@@ -32,7 +32,6 @@ CityList::~CityList() {
     }
 }
 
-
 vector<City *> CityList::shuffle() const {
     // Create a copy of the cities currently in the Singleton
     vector<City *> copy_cities = cities;
