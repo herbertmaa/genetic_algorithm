@@ -46,7 +46,3 @@ void test_tour_manager(){
     ToursManager manager;
     manager.print_tours();
 }
-
-void test_shuffle(){
-
-}
