@@ -15,25 +15,23 @@ private:
     std::vector<City *> cities;
     double fitness = 0;
     double total_distance = 0;
-    double determine_fitness();
+    void determine_fitness();
     void gen_random_cities();
+    void swap(Tour& lhs, Tour& rhs);
 
 public:
-    constexpr static int CITIES_IN_TOURS = 10;
-    constexpr static double MUTATION_RATE = 0.20;
+    constexpr static double MUTATION_RATE = 0.5;
 
     Tour();
-    Tour(Tour * tours[2]); // don't think we should hardcode something like this
+    Tour(const Tour& rhs);
+    Tour(const Tour& t1, const Tour& t2);
     ~Tour();
-
     Tour& operator=(Tour assignment);
-    double getDistance() const;
-    bool contains_city(City* city); //TODO unused atm, but assignment has this method?
-    void mutation();
-    Tour(const Tour &t);
+    bool contains_city(City* city);
+    void mutate();
     inline int num_cities() const { return this->cities.size(); };
-    inline double get_fitness() const {return this->fitness;};
-    inline double get_total_distance() const {return this->total_distance;};
+    double get_fitness() const;
+    inline double get_tour_distance() const {return this->total_distance;};
     friend ostream&operator <<(ostream&os, const Tour& t);
     bool operator < (const Tour& t2) const;
 

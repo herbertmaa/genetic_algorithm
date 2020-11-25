@@ -14,10 +14,15 @@
 class GeneticAlgorithm{
 
 private:
-    double base_distance = 0;
-    ToursManager manager; // probably should be a pointer?
+    double base_fitness = 0;
+    ToursManager * manager;
 public:
+    static constexpr int ITERATIONS = 5000;
+
     GeneticAlgorithm();
     ~GeneticAlgorithm();
-    friend ostream&operator <<(ostream&os, GeneticAlgorithm g);
+
+    void run();
+
+    friend ostream&operator <<(ostream&os, const GeneticAlgorithm& g);
 };

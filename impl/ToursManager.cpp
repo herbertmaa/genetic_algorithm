@@ -4,60 +4,85 @@
 
 #include <random>
 #include <algorithm>
+#include <iostream>
 #include "../headers/ToursManager.hpp"
 #include "../headers/CityList.hpp"
 
-void ToursManager::init() {
-    for (int i = 0; i < POPULATION_SIZE; ++i) {
-        Tour* base_tour= new Tour();
+using std::endl;
+using std::cout;
+
+ToursManager::ToursManager() {
+    for (int i = 0; i < NUMBER_OF_TOURS; ++i) {
+        Tour *base_tour = new Tour();
         base_tours.push(base_tour);
     }
 }
 
-int ToursManager::get_elite_distance(queue tours) {
-    return tours.top()->get_total_distance();
+double ToursManager::get_elite_distance() const {
+    return base_tours.top()->get_tour_distance();
 }
 
-queue ToursManager::get_parent_subset(const vector<Tour *>& tours) {
+double ToursManager::get_elite_fitness() const {
+    return base_tours.top()->get_fitness();
+}
+
+Tour *ToursManager::select_parents(const vector<Tour *> &tours) {
+    // Create a queue for the parents
     queue parents;
     std::random_device rd;
     std::mt19937 eng{rd()};
-    std::uniform_int_distribution<int> dist{0, POPULATION_SIZE - 2};
+    std::uniform_int_distribution<int> dist{0, NUMBER_OF_TOURS - 2};
+
+    // Grab tours from random indices of the vector tours provided.
     for (int i = 0; i < PARENT_POOL_SIZE; ++i) {
         int rand = dist(eng);
         parents.push(tours.at(rand));
     }
-    return parents;
+
+    // Return a pointer to the best one out of this bunch
+    return parents.top();
 }
 
-void ToursManager::generate_merged_tours(queue& tours) {
+void ToursManager::crossover() {
+
+    // A vector containing our new tour list
     vector<Tour *> temp;
-    Tour * fittest = tours.top();
 
-    tours.pop();
+    // Create a Tour pointer to our best tour so far
+    Tour* elite = base_tours.top();
+    base_tours.pop();
 
-    while (!tours.empty()) {
-        temp.push_back(tours.top());
-        tours.pop();
+    // Unload our priority queue and convert it into a vector.
+    while (!base_tours.empty()) {
+        temp.push_back(base_tours.top());
+        base_tours.pop();
     }
 
-    for (int i = 0; i < POPULATION_SIZE - 1; ++i) {
-        Tour * parents[NUMBER_OF_PARENTS];
-        for (int i = 0; i < NUMBER_OF_PARENTS; ++i) {
-            queue parent_queue = get_parent_subset(temp);
-            parents[i] = parent_queue.top();
-        }
-        Tour * crossed = new Tour {parents};
-        tours.push(crossed);
-    }
-    tours.push(fittest);
+    for (int i = 0; i < NUMBER_OF_TOURS-1; ++i) {
+        // Create a pair of parents
+        std::pair<Tour *, Tour *> pair;
 
-    for (auto it = temp.begin(); it != temp.end() ; ++it) {
+        pair.first = select_parents(temp);
+
+        pair.second = select_parents(temp);
+
+        // Cross them to make a new Tour
+        Tour *crossed = new Tour{*pair.first, *pair.second};
+
+        // Add the Tour to our base_tour
+        base_tours.push(crossed);
+    }
+
+    // Re-add back the base_tour
+    base_tours.push(elite);
+
+
+    // Everything in temp is now previous generations of tours. We can safely delete those.
+    for (auto it = temp.begin(); it != temp.end(); ++it) {
         delete (*it);
         *it = nullptr;
     }
 }
-
 
 ToursManager::~ToursManager() {
     while (!base_tours.empty()) {
@@ -67,22 +92,44 @@ ToursManager::~ToursManager() {
 }
 
 void ToursManager::pick_and_mutate(double mutation_rate) {
-    //keep the implementation of mutate in tours otherwise you need a getter to the list of cities
     std::mt19937 e{std::random_device{}()};
     std::uniform_real_distribution<double> dist(0, 1);
 
     queue new_tours;
-    Tour* elite = base_tours.top();
-    while(!base_tours.empty()){
+
+    // Remove the first element from the queue
+    Tour *elite = base_tours.top();
+    base_tours.pop();
+
+    // While the queue is not empty continually pop from it
+    while (!base_tours.empty()) {
         double rand = dist(e);
-        Tour* current = base_tours.top();
+        Tour *current = base_tours.top();
         base_tours.pop();
-        if(rand > Tour::MUTATION_RATE){
-            current->mutation();
+
+        // Mutate the tour if it meets the criteria
+        if (rand < mutation_rate) {
+            current->mutate();
         }
+
+        // Push it into the new tour list
         new_tours.push(current);
     }
+    // Put the elite back into the new tour list
     new_tours.push(elite);
-    base_tours = new_tours;
+
+    // Copy all elements of the tour list back into the original tour list.
+    while (!new_tours.empty()) {
+        base_tours.push(new_tours.top());
+        new_tours.pop();
+    }
+}
+
+void ToursManager::print_tours() const {
+    queue temp = this->base_tours;
+    while (!temp.empty()) {
+        std::cout << *(temp.top()) << std::endl;
+        temp.pop();
+    }
 }
 
