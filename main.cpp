@@ -1,6 +1,6 @@
 #include <iostream>
 #include "headers/GeneticAlgorithm.hpp"
-#include <algorithm>    // std::find
+#include <algorithm>
 
 #define CATCH_CONFIG_RUNNER
 
