@@ -31,6 +31,7 @@ public:
 
     friend ostream&operator <<(ostream&os, const City& c);
     friend double get_distance_between_cities(const City&c1, const City&c2);
-
+    friend bool operator ==(const City& left, const City& right);
+    friend bool operator !=(const City& left, const City& right);
     ~City() = default;
 };

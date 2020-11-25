@@ -5,12 +5,11 @@
 using namespace std;
 
 void test_tour();
+void test_tourManager();
 
 int main() {
     GeneticAlgorithm g{};
     cout << g;
-
-//    test_tour();
     return 0;
 }
 
@@ -21,3 +20,8 @@ void test_tour() {
     cout << tour << endl;
 }
 
+
+void test_tourManager(){
+    ToursManager manager;
+    manager.print_tours();
+}

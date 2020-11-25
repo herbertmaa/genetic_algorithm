@@ -7,25 +7,28 @@
 #include <algorithm>
 #include "../headers/CityList.hpp"
 
-CityList * CityList::instance = nullptr;
 
-CityList * CityList::get_instance() {
-    if (!CityList::instance) {
-        CityList::instance = new CityList{};
+CityList &CityList::get_instance() {
 
+    // Create only one instance inside this method. This is the instance that we will access. FOREVER.
+    static CityList instance;
+
+    if(instance.cities.empty()){
         std::mt19937 eng{RANDOM_SEED};
         std::uniform_int_distribution<int> dist{City::MIN_RANGE, City::MAX_RANGE};
         for (int i = 0; i < CITIES_IN_TOUR; ++i) {
-            CityList::instance->cities.push_back(new City(dist(eng), dist(eng), "C" + std::to_string(i)));
+            instance.cities.push_back(new City(dist(eng), dist(eng), "C" + std::to_string(i)));
         }
     }
-    return CityList::instance;
+
+
+    return instance;
 }
 
-void CityList::reset_instance() {
-    delete instance;
-    CityList::instance = nullptr;
-}
+//void CityList::reset_instance() {
+//    delete instance;
+//    CityList::instance = nullptr;
+//}
 
 
 CityList::~CityList() {

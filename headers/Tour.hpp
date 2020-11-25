@@ -15,13 +15,12 @@ private:
     std::vector<City *> cities;
     double fitness = 0;
     double total_distance = 0;
-    double determine_fitness();
+    void determine_fitness();
     void gen_random_cities();
     void swap(Tour& lhs, Tour& rhs);
 
 public:
-    constexpr static int CITIES_IN_TOURS = 5;
-    constexpr static double MUTATION_RATE = 0.20;
+    constexpr static double MUTATION_RATE = 0.05;
 
     Tour();
     Tour(const Tour& rhs);
