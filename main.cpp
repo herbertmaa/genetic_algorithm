@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 void test_tour_mutate() {
     Tour tour {};
     cout << tour << endl;
-    tour.mutation();
+    tour.mutate();
     cout << tour << endl;
 }
 
@@ -83,44 +83,4 @@ void test_shuffle(){
     if(failed){
         cout << "this test failed, there is a city that exists in one and not another" << endl;
     }
-}
-
-void test_get_distance_between_cities(){
-    City c{49,123, "Vancouver"};
-    City c2{19, 73, "mumbai"};
-
-    double func_answer = get_distance_between_cities(c, c2);
-    double answer = sqrt(pow((49-19), 2) + pow((123-73), 2));
-
-    if(func_answer != answer){
-        cout << "FAILED" << endl;
-    }else{
-        cout << "DID NOT FAIL" << endl;
-    }
-
-}
-
-void test_equality_cities(){
-    City c{49, 123, "Vancouver"};
-    City c2{49, 123, "Vancouver"};
-    if(c != c2){
-        cout << "FAILED" << endl;
-    }
-}
-
-
-void test_assignment_cities(){
-    City c{49, 123, "Vancouver"};
-    City c2{19, 73, "mumbai"};
-    c2 = c;
-    cout << "c2 was originally mumbai and is now Vancouver" << endl;
-    cout << c2 << endl;
-}
-
-void test_city_copy(){
-    City c{49, 123, "Vancouver"};
-    City c2{c};
-
-    cout << "c2 is now a hard copy of c1" << endl;
-    cout << c2 << endl;
 }
