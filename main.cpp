@@ -1,6 +1,5 @@
 #include <iostream>
 #include "headers/GeneticAlgorithm.hpp"
-#include <algorithm>
 
 #define CATCH_CONFIG_RUNNER
 
