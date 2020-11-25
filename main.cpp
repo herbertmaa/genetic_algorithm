@@ -42,45 +42,7 @@ int main(int argc, char *argv[]) {
     return result;
 }
 
-void test_tour_mutate() {
-    Tour tour {};
-    cout << tour << endl;
-    tour.mutate();
-    cout << tour << endl;
-}
-
 void test_tour_manager(){
     ToursManager manager;
     manager.print_tours();
-}
-
-void test_shuffle(){
-    CityList& c = CityList::get_instance();
-
-    vector<City* > result = c.shuffle();
-    int count1 = 0;
-
-    for(auto it = result.begin(); it < result.end(); ++it){
-        cout << **it << endl;
-        ++count1;
-    }
-    vector<City* > result2 = c.shuffle();
-    int count2 = 0;
-
-    bool failed = false;
-    for(auto it = result2.begin(); it < result2.end(); ++it){
-        ++count2;
-        if(std::find(result.begin(), result.end(), *it) == result.end()){
-            failed = true;
-            break;
-        }
-    }
-
-    if(count1 != count2){
-        cout << "this test failed, the two vectors are different sizes" << endl;
-    }
-
-    if(failed){
-        cout << "this test failed, there is a city that exists in one and not another" << endl;
-    }
 }

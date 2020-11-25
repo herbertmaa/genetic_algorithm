@@ -31,5 +31,4 @@ public:
      * Function to run the Genetic algorithm ITERATIONS time OR until an improvement factor has been reached
      */
     void run();
-
 };
