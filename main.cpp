@@ -10,14 +10,6 @@
 
 using namespace std;
 
-void test_tour_manager();
-void test_shuffle();
-void test_get_distance_between_cities();
-void test_equality_cities();
-void test_assignment_cities();
-void test_city_copy();
-void test_tour_mutate();
-
 int main(int argc, char *argv[]) {
     int result;
 
@@ -34,15 +26,5 @@ int main(int argc, char *argv[]) {
     }
 
 //    GeneticAlgorithm g{};
-//    test_shuffle();
-//    test_get_distance_between_cities();
-//    test_equality_cities();
-//    test_assignment_cities();
-//    test_city_copy();
     return result;
-}
-
-void test_tour_manager(){
-    ToursManager manager;
-    manager.print_tours();
 }
