@@ -4,24 +4,14 @@
 
 using namespace std;
 
+void test_city();
 void test_tour();
-void test_tourManager();
+void test_tour_manager();
+void test_genetic_algorithm();
+void test_city_list();
 
 int main() {
     GeneticAlgorithm g{};
     cout << g;
     return 0;
-}
-
-void test_tour() {
-    Tour tour {};
-    cout << tour << endl;
-    tour.mutation();
-    cout << tour << endl;
-}
-
-
-void test_tourManager(){
-    ToursManager manager;
-    manager.print_tours();
 }

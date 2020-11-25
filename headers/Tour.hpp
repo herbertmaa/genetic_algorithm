@@ -20,7 +20,7 @@ private:
     void swap(Tour& lhs, Tour& rhs);
 
 public:
-    constexpr static double MUTATION_RATE = 0.05;
+    constexpr static double MUTATION_RATE = 0.5;
 
     Tour();
     Tour(const Tour& rhs);
@@ -28,7 +28,7 @@ public:
     ~Tour();
     Tour& operator=(Tour assignment);
     bool contains_city(City* city);
-    void mutation();
+    void mutate();
     inline int num_cities() const { return this->cities.size(); };
     double get_fitness() const;
     inline double get_total_distance() const {return this->total_distance;};

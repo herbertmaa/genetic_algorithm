@@ -27,7 +27,7 @@ double ToursManager::get_elite_fitness() const {
     return base_tours.top()->get_fitness();
 }
 
-Tour *ToursManager::get_parent(const vector<Tour *> &tours) {
+Tour * ToursManager::get_parent(const vector<Tour *> &tours) {
 
     // Create a queue for the parents
     queue parents;
@@ -110,8 +110,8 @@ void ToursManager::pick_and_mutate(double mutation_rate) {
         base_tours.pop();
 
         // Mutate the tour if it meets the criteria
-        if (rand > Tour::MUTATION_RATE) {
-            current->mutation();
+        if (rand < mutation_rate) {
+            current->mutate();
         }
 
         // Push it into the new tour list

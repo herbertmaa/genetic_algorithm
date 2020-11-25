@@ -39,13 +39,14 @@ ostream &operator<<(ostream &os, const GeneticAlgorithm& g) {
 
 void GeneticAlgorithm::run() {
     int iterations = 0;
-    double desired_improvement = 0.15;
+    double desired_improvement = 0.35;
 
     base_fitness = manager->get_elite_fitness();
     double new_fitness = base_fitness;
 
-    while((abs(base_fitness - new_fitness)/base_fitness) < desired_improvement || iterations < GeneticAlgorithm::ITERATIONS){
-
+    while((abs(base_fitness - new_fitness)/base_fitness) < desired_improvement && iterations < GeneticAlgorithm::ITERATIONS){
+//        cout << abs(base_fitness - new_fitness)/base_fitness << endl;
+//        cout << desired_improvement << endl;
 //        while(iterations < 5){
         this->manager->cross_tours();
         this->manager->pick_and_mutate(Tour::MUTATION_RATE);

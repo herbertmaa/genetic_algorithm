@@ -9,7 +9,6 @@
 
 
 CityList &CityList::get_instance() {
-
     // Create only one instance inside this method. This is the instance that we will access. FOREVER.
     static CityList instance;
 
@@ -20,16 +19,8 @@ CityList &CityList::get_instance() {
             instance.cities.push_back(new City(dist(eng), dist(eng), "C" + std::to_string(i)));
         }
     }
-
-
     return instance;
 }
-
-//void CityList::reset_instance() {
-//    delete instance;
-//    CityList::instance = nullptr;
-//}
-
 
 CityList::~CityList() {
     for (auto it = cities.begin(); it != cities.end(); it++) {
