@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 void test_tour_mutate() {
     Tour tour {};
     cout << tour << endl;
-    tour.mutation();
+    tour.mutate();
     cout << tour << endl;
 }
 

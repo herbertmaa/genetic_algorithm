@@ -11,25 +11,24 @@ using std::vector;
 
 class CityList {
 private:
-    static CityList *instance;
-    vector<City *> cities;
-    CityList() = default;
+    vector<City *> cities; // A vector to store list of cities
+    CityList() = default; // Singleton object of CityList, so we have hidden the constructor
     ~CityList();
 
 public:
-    static constexpr int RANDOM_SEED = 37;
     static constexpr int CITIES_IN_TOUR = 30;
-    /**
-    * Prevents assignment of the instance
-    */
+
+    /* Delete the assignment operator to prevents assignment of the instance*/
     void operator=(CityList const &) = delete;
     /**
      * Gets the singleton instance
-     * @return a pointer to the global instance of CityList
+     * @return a reference to the global instance of CityList
      */
     static CityList& get_instance();
+
     /**
-     * Deletes the global instance
+     * Getter function that gets a vector copy of the shuffled city list
+     * @return - A shuffled city list
      */
     vector<City *> shuffle() const;
 };

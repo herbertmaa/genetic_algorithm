@@ -4,6 +4,7 @@
 
 #pragma once
 
+/* Class to help us compare pointers of a Tour */
 struct Comparator{
     template<typename T>
     bool operator()(T* a, T* b) {
