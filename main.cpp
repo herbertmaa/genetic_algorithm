@@ -26,6 +26,5 @@ int main(int argc, char *argv[]) {
 
     GeneticAlgorithm g{};
     cout << g;
-    CityList::reset_instance();
     return result;
 }
