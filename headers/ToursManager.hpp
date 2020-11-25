@@ -17,7 +17,6 @@ typedef priority_queue<Tour*, std::vector<Tour*>, Comparator> queue;
 class ToursManager {
 private:
     static constexpr int PARENT_POOL_SIZE = 5;
-    static constexpr int NUMBER_OF_PARENTS = 4;
     static constexpr int NUMBER_OF_TOURS = 30;
     static constexpr double TO_BE_MUTATED = 0.25;
 
