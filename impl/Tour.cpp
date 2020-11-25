@@ -24,19 +24,16 @@ Tour::Tour(const Tour &t1, const Tour &t2) {
     std::uniform_int_distribution<int> dist{0, CityList::CITIES_IN_TOUR -1};
 
     int rand = dist(e);
-    int count = 0;
     auto end = t1.cities.begin() + rand;
     for(auto it = t1.cities.begin(); it <= end; ++it){
         cities.push_back(*it);
     }
 
-    for(auto it = t2.cities.begin(); it != t2.cities.end(); ++it) {
-        if (!contains_city(*it)) {
-            cities.push_back(*it);
+    for(auto city : t2.cities) {
+        if (!contains_city(city)) {
+            cities.push_back(city);
         }
     }
-
-
     determine_fitness();
 }
 
@@ -77,30 +74,31 @@ bool Tour::operator<(const Tour &t2) const {
     return (this->fitness < t2.fitness);
 }
 
-void Tour::mutation() {
+void Tour::mutate() {
     // Random number generator
     std::mt19937 e{std::random_device{}()};
-    std::uniform_int_distribution<int> dist(0, CityList::CITIES_IN_TOUR - 1);
+    std::uniform_real_distribution<double> dist(0, 1);
 
     // Get a random iterator pointing to a city in the tour
-
     // Random number
-    int rand = dist(e);
-    auto it = cities.begin() + rand;
+    for (int i = 0; i < (int) cities.size(); ++i) {
+        int rand = dist(e);
+        auto it = cities.begin() + i;
 
-    if (it < cities.begin() || it >= cities.end()) {
-        return;
-    }
+        if (rand > MUTATION_RATE) {
+            continue;
+        }
 
-    // Check for cases of the iterator being at the beginning or the end
-    if (it == cities.end() - 1) {
-        iter_swap(it, it - 1);
-    } else if (it == cities.begin()) {
-        iter_swap(it, it + 1);
-    } else if (rand % 2) {
-        iter_swap(it, it - 1);
-    } else {
-        iter_swap(it, it + 1);
+        // Check for cases of the iterator being at the beginning or the end
+        if (it == cities.end() - 1) {
+            iter_swap(it, it - 1);
+        } else if (it == cities.begin()) {
+            iter_swap(it, it + 1);
+        } else if (rand < (MUTATION_RATE / 2)) {
+            iter_swap(it, it - 1);
+        } else {
+            iter_swap(it, it + 1);
+        }
     }
 
     // Redetermine the fitness of the tour

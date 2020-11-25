@@ -6,13 +6,14 @@
 
 using namespace std;
 
-void test_tour();
-void test_tourManager();
+void test_tour_manager();
 void test_shuffle();
 void test_get_distance_between_cities();
 void test_equality_cities();
 void test_assignment_cities();
 void test_city_copy();
+void test_tour_mutate();
+
 int main() {
 //    GeneticAlgorithm g{};
 //    cout << g;
@@ -24,14 +25,14 @@ int main() {
     return 0;
 }
 
-void test_tour() {
+void test_tour_mutate() {
     Tour tour {};
     cout << tour << endl;
     tour.mutation();
     cout << tour << endl;
 }
 
-void test_tourManager(){
+void test_tour_manager(){
     ToursManager manager;
     manager.print_tours();
 }

@@ -9,7 +9,6 @@
 
 
 CityList &CityList::get_instance() {
-
     // Create only one instance inside this method. This is the instance that we will access. FOREVER.
     static CityList instance;
 
