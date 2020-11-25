@@ -14,7 +14,7 @@ using std::swap;
 
 
 Tour::Tour() {
-    gen_random_cities();
+    cities = CityList::get_instance().shuffle();
     determine_fitness();
 }
 
@@ -24,16 +24,25 @@ Tour::Tour(const Tour &t1, const Tour &t2) {
     std::uniform_int_distribution<int> dist{0, CityList::CITIES_IN_TOUR -1};
 
     int rand = dist(e);
+
+    // Get a end point of the Tour 1 to copy from
     auto end = t1.cities.begin() + rand;
+
+    // Copy from the beginning to the end of the tour
     for(auto it = t1.cities.begin(); it <= end; ++it){
         cities.push_back(*it);
     }
 
+    // Fill in the rest of cities vector with cities from T2
     for(auto city : t2.cities) {
+
+        //If the city is already in T1, do not push into it.
         if (!contains_city(city)) {
             cities.push_back(city);
         }
     }
+
+    //Determine the fitness of the newly created tour
     determine_fitness();
 }
 
@@ -43,7 +52,6 @@ Tour::Tour(const Tour &t) {
     total_distance = t.total_distance;
     determine_fitness();
 }
-
 
 void Tour::swap(Tour &lhs, Tour &rhs) {
 
@@ -67,7 +75,7 @@ void Tour::determine_fitness() {
         total_distance += get_distance_between_cities(**it, **(it + 1));
     }
     if (total_distance == 0) throw std::invalid_argument("DIVIDING BY ZERO");
-    this-> fitness = CityList::RANDOM_SEED / total_distance;
+    this-> fitness = Tour::RANDOM_SEED / total_distance;
 }
 
 bool Tour::operator<(const Tour &t2) const {
@@ -85,9 +93,7 @@ void Tour::mutate() {
         int rand = dist(e);
         auto it = cities.begin() + i;
 
-        if (rand > MUTATION_RATE) {
-            continue;
-        }
+        if (rand > MUTATION_RATE) continue;
 
         // Check for cases of the iterator being at the beginning or the end
         if (it == cities.end() - 1) {
@@ -115,18 +121,10 @@ double Tour::get_fitness() const {
     throw std::overflow_error("Fitness value is equal to 0");
 }
 
-void Tour::gen_random_cities() {
-    cities = CityList::get_instance().shuffle();
-    determine_fitness();
-}
-bool Tour::contains_city(City* city) {
+bool Tour::contains_city(City* city) const {
     if (std::find(cities.begin(), cities.end(), city) != cities.end()) {
         return true;
     } else {
         return false;
     }
-}
-
-Tour::~Tour() {
-    cities.clear();
 }

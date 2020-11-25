@@ -12,6 +12,8 @@ using std::endl;
 using std::cout;
 
 ToursManager::ToursManager() {
+
+    // Allocate memory by creating new tours and putting tours into a priority queue
     for (int i = 0; i < NUMBER_OF_TOURS; ++i) {
         Tour *base_tour = new Tour();
         base_tours.push(base_tour);
@@ -83,13 +85,15 @@ void ToursManager::crossover() {
 }
 
 ToursManager::~ToursManager() {
+
+    // Deallocate memory from creating Tours
     while (!base_tours.empty()) {
         delete base_tours.top();
         base_tours.pop();
     }
 }
 
-void ToursManager::pick_and_mutate(double mutation_rate) {
+void ToursManager::pick_and_mutate() {
     std::mt19937 e{std::random_device{}()};
     std::uniform_real_distribution<double> dist(0, 1);
 
@@ -106,7 +110,7 @@ void ToursManager::pick_and_mutate(double mutation_rate) {
         base_tours.pop();
 
         // Mutate the tour if it meets the criteria
-        if (rand < mutation_rate) {
+        if (rand < TO_BE_MUTATED) {
             current->mutate();
         }
 
@@ -124,6 +128,7 @@ void ToursManager::pick_and_mutate(double mutation_rate) {
 }
 
 void ToursManager::print_tours() const {
+    //Create a copy of the priority queue, pop from this to preserve the queue in ToursManager
     queue temp = this->base_tours;
     while (!temp.empty()) {
         std::cout << *(temp.top()) << std::endl;
