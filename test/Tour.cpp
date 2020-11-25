@@ -49,5 +49,5 @@ TEST_CASE("Mutating a tour", "Assignment") {
 TEST_CASE("Getter function return the properties of a tour", "Getters") {
     Tour tour;
     CHECK(tour.get_fitness() < 1);
-    CHECK(tour.get_tour_distance() < (CITIES_IN_TOUR * City::MAX_RANGE));
+    CHECK(tour.get_tour_distance() < (CITIES_IN_TOUR * City::MAX_MAP_BOUNDARY));
 }

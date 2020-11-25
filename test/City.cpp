@@ -28,14 +28,14 @@ TEST_CASE("Two cities with same member variables must be equal", "Equals") {
 
 TEST_CASE("A city can be assigned to another", "Assignment") {
     City c{49, 123, "Vancouver"};
-    City c2{19, 73, "mumbai"};
+    City c2{19, 73, "Mumbai"};
     c2 = c;
     CHECK(c2 == c);
 }
 
 TEST_CASE("Get distance between two cities", "GetDistance") {
     City c{49,123, "Vancouver"};
-    City c2{19, 73, "mumbai"};
+    City c2{19, 73, "Mumbai"};
 
     double func_answer = get_distance_between_cities(c, c2);
     double answer = sqrt(pow((49-19), 2) + pow((123-73), 2));

@@ -89,5 +89,7 @@ public:
      */
     bool operator < (const Tour& t2) const;
 
+    /* Getter method for the number of cities inside of a tour */
+    int num_cities() const;
 };
 
