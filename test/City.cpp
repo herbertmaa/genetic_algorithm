@@ -6,7 +6,7 @@
 #include "../headers/City.hpp"
 
 TEST_CASE("Constructing a city", "DefaultConstruct") {
-    CHECK_THROWS(City {100000, 10000, "Invalid"});
+    CHECK_NOTHROW(City {111, 121, "Valid"});
 }
 
 TEST_CASE("Constructing a city with coordinates out of map boundary", "CheckCoords") {
