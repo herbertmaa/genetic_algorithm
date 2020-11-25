@@ -128,3 +128,7 @@ bool Tour::contains_city(City* city) const {
         return false;
     }
 }
+
+int Tour::num_cities() const {
+    return cities.size();
+}

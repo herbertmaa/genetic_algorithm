@@ -1,8 +1,6 @@
 #include <iostream>
 #include "headers/GeneticAlgorithm.hpp"
-#include "headers/CityList.hpp"
 #include <algorithm>    // std::find
-#include <cmath>
 
 #define CATCH_CONFIG_RUNNER
 
@@ -10,13 +8,6 @@
 
 using namespace std;
 
-void test_tour_manager();
-void test_shuffle();
-void test_get_distance_between_cities();
-void test_equality_cities();
-void test_assignment_cities();
-void test_city_copy();
-void test_tour_mutate();
 
 int main(int argc, char *argv[]) {
     int result;
@@ -33,7 +24,8 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-//    GeneticAlgorithm g{};
+    GeneticAlgorithm g{};
+    g.run();
 //    test_shuffle();
 //    test_get_distance_between_cities();
 //    test_equality_cities();
@@ -42,7 +34,3 @@ int main(int argc, char *argv[]) {
     return result;
 }
 
-void test_tour_manager(){
-    ToursManager manager;
-    manager.print_tours();
-}
