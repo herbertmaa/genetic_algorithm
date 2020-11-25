@@ -1,13 +1,11 @@
 #include <iostream>
 #include "headers/GeneticAlgorithm.hpp"
-#include <algorithm>    // std::find
 
 #define CATCH_CONFIG_RUNNER
 
 #include "catch2/catch.hpp"
 
 using namespace std;
-
 
 int main(int argc, char *argv[]) {
     int result;
@@ -23,14 +21,7 @@ int main(int argc, char *argv[]) {
         std::cin.get(); // Immediate feedback.
         return -1;
     }
-
-    GeneticAlgorithm g{};
-    g.run();
-//    test_shuffle();
-//    test_get_distance_between_cities();
-//    test_equality_cities();
-//    test_assignment_cities();
-//    test_city_copy();
+  
+//    GeneticAlgorithm g{};
     return result;
 }
-
