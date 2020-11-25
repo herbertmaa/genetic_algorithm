@@ -23,6 +23,4 @@ public:
     ~GeneticAlgorithm();
 
     void run();
-
-    friend ostream&operator <<(ostream&os, const GeneticAlgorithm& g);
 };

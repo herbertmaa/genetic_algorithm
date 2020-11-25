@@ -75,8 +75,6 @@ void ToursManager::crossover() {
 
     // Re-add back the base_tour
     base_tours.push(elite);
-
-
     // Everything in temp is now previous generations of tours. We can safely delete those.
     for (auto it = temp.begin(); it != temp.end(); ++it) {
         delete (*it);
