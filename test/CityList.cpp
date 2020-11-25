@@ -5,11 +5,13 @@
 #include "catch2/catch.hpp"
 #include "../headers/CityList.hpp"
 
-TEST_CASE("A CityList must create a list of 30 cities", "GetInstance") {
+constexpr double CITIES_IN_TOUR = CityList::CITIES_IN_TOUR;
+
+TEST_CASE("A CityList must create a list of CITIES_IN_TOUR cities", "GetInstance") {
     CityList& c = CityList::get_instance();
 
     vector<City* > result = c.shuffle();
-    CHECK(result.size() == 30);
+    CHECK(result.size() == CITIES_IN_TOUR);
 }
 
 TEST_CASE("Can shuffle cities around", "Shuffle") {

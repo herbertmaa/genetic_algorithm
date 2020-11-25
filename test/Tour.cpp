@@ -6,7 +6,7 @@
 #include "../headers/Tour.hpp"
 #include "../headers/CityList.hpp"
 
-int CITIES_IN_TOUR = 30;
+constexpr double CITIES_IN_TOUR = CityList::CITIES_IN_TOUR;
 
 TEST_CASE("Construct a tour", "DefaultConstruct") {
     Tour tour;
