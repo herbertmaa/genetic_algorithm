@@ -39,27 +39,24 @@ ostream &operator<<(ostream &os, const GeneticAlgorithm& g) {
 
 void GeneticAlgorithm::run() {
     int iterations = 0;
-    double desired_improvement = 1;
+    double desired_improvement = 0.15;
 
     base_fitness = manager->get_elite_fitness();
-    double new_fitness = 1;
+    double new_fitness = base_fitness;
 
-    cout << this->manager->get_elite_distance() << endl;
+    while((abs(base_fitness - new_fitness)/base_fitness) < desired_improvement || iterations < GeneticAlgorithm::ITERATIONS){
 
-    while(base_fitness - new_fitness < desired_improvement || iterations < GeneticAlgorithm::ITERATIONS){
-
+//        while(iterations < 5){
         this->manager->cross_tours();
         this->manager->pick_and_mutate(Tour::MUTATION_RATE);
-
-        cout << this->manager->get_elite_distance() << endl;
-
         new_fitness = this->manager->get_elite_fitness();
-
         ++iterations;
+        cout << this->manager->get_elite_fitness() << endl;
+        cout << this->manager->get_elite_distance() << endl;
     }
+    cout << "Number of iterations: " << iterations << endl;
 }
 
 GeneticAlgorithm::~GeneticAlgorithm() {
-    CityList::reset_instance();
     delete manager;
 }

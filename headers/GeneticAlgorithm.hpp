@@ -17,7 +17,7 @@ private:
     double base_fitness = 0;
     ToursManager * manager;
 public:
-    static constexpr int ITERATIONS = 1000;
+    static constexpr int ITERATIONS = 5000;
 
     GeneticAlgorithm();
     ~GeneticAlgorithm();

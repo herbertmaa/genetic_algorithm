@@ -10,61 +10,67 @@
 
 using std::cout;
 using std::endl;
+using std::swap;
 
-constexpr int SHUFFLES = 64;
-constexpr int MAP_BOUNDARY = 1000;
-constexpr int PARENT_POOL_SIZE = 5;
-constexpr int NUMBER_OF_ELITES = 1;
 
 Tour::Tour() {
     gen_random_cities();
-    this->fitness = determine_fitness();
+    determine_fitness();
 }
 
 Tour::Tour(const Tour &t1, const Tour &t2) {
 
     std::mt19937 e{std::random_device{}()};
-    std::uniform_int_distribution<int> dist{0, Tour::CITIES_IN_TOURS-1};
+    std::uniform_int_distribution<int> dist{0, CityList::CITIES_IN_TOUR -1};
 
-    cities = vector<City*> (t1.cities.begin(), t1.cities.begin() + dist(e));
+    int rand = dist(e);
+    int count = 0;
+    auto end = t1.cities.begin() + rand;
+    for(auto it = t1.cities.begin(); it <= end; ++it){
+        cities.push_back(*it);
+    }
 
     for(auto it = t2.cities.begin(); it != t2.cities.end(); ++it) {
         if (!contains_city(*it)) {
             cities.push_back(*it);
         }
     }
-    this->determine_fitness();
+
+
+    determine_fitness();
 }
 
 Tour::Tour(const Tour &t) {
     cities = vector<City *> {t.cities.begin(), t.cities.end()};
     fitness = t.fitness;
     total_distance = t.total_distance;
-    this->determine_fitness();
+    determine_fitness();
 }
 
 
 void Tour::swap(Tour &lhs, Tour &rhs) {
-    using std::swap;
 
     lhs.cities.swap(rhs.cities);
-    swap(lhs.fitness, rhs.fitness);
-    swap(lhs.total_distance, rhs.total_distance);
+    std::swap(lhs.fitness, rhs.fitness);
+    std::swap(lhs.total_distance, rhs.total_distance);
 }
 
 ostream &operator<<(ostream &os, const Tour &t) {
     os << t.get_total_distance() << endl;
     os << t.get_fitness() << endl;
+    for(City* c: t.cities){
+        os << *c << endl;
+    }
     return os;
 }
 
-double Tour::determine_fitness() {
+void Tour::determine_fitness() {
     total_distance = 0;
     for (auto it = cities.begin(); it != cities.end() - 1; ++it) {
         total_distance += get_distance_between_cities(**it, **(it + 1));
     }
     if (total_distance == 0) throw std::invalid_argument("DIVIDING BY ZERO");
-    return 1 / total_distance * CityList::RANDOM_SEED;
+    this-> fitness = CityList::RANDOM_SEED / total_distance;
 }
 
 bool Tour::operator<(const Tour &t2) const {
@@ -98,7 +104,7 @@ void Tour::mutation() {
     }
 
     // Redetermine the fitness of the tour
-    this->fitness = determine_fitness();
+    determine_fitness();
 }
 
 Tour &Tour::operator=(Tour assignment) {
@@ -112,14 +118,14 @@ double Tour::get_fitness() const {
 }
 
 void Tour::gen_random_cities() {
-    cities = CityList::get_instance()->shuffle();
+    cities = CityList::get_instance().shuffle();
     determine_fitness();
 }
-bool Tour::contains_city(City *city) {
-    if (std::find(cities.begin(), cities.end(), city) == cities.end()) {
-        return false;
-    } else {
+bool Tour::contains_city(City* city) {
+    if (std::find(cities.begin(), cities.end(), city) != cities.end()) {
         return true;
+    } else {
+        return false;
     }
 }
 

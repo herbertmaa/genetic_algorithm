@@ -14,10 +14,11 @@ private:
     static CityList *instance;
     vector<City *> cities;
     CityList() = default;
+    ~CityList();
 
 public:
     static constexpr int RANDOM_SEED = 37;
-    static constexpr int CITIES_IN_TOUR = 10;
+    static constexpr int CITIES_IN_TOUR = 30;
     /**
     * Prevents assignment of the instance
     */
@@ -26,11 +27,9 @@ public:
      * Gets the singleton instance
      * @return a pointer to the global instance of CityList
      */
-    static CityList *get_instance();
+    static CityList& get_instance();
     /**
      * Deletes the global instance
      */
-    static void reset_instance();
-    ~CityList();
     vector<City *> shuffle() const;
 };
