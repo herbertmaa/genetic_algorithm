@@ -67,7 +67,7 @@ void GeneticAlgorithm::run() {
     cout << endl;
 
     Tour* best_tour = manager->get_copy_elite();
-    generate_report(iterations, base_distance, best_distance, improvement_amount >= DESIRED_IMPROVEMENT, base_tour, best_tour);
+    generate_report(iterations, base_distance, best_distance, improvement_amount, improvement_amount >= DESIRED_IMPROVEMENT, base_tour, best_tour);
 
     delete base_tour;
     delete best_tour;
@@ -77,12 +77,18 @@ GeneticAlgorithm::~GeneticAlgorithm() {
     delete manager;
 }
 
-void GeneticAlgorithm::generate_report(int iterations, double base_distance, double best_distance, bool achieved, Tour* base_route, Tour* best_route) {
+void GeneticAlgorithm::generate_report(int iterations, double base_distance, double best_distance, double improvement_amount, bool achieved, Tour* base_route, Tour* best_route) {
     cout << "**** Genetic Algorithm Report ****" << endl;
     cout << "Number of iterations " << iterations << endl;
     cout << "Base distance:  " << base_distance << endl;
     cout << "Best distance:  " << best_distance << endl;
+    cout << "Improvement amount: " << improvement_amount << endl;
+    cout << "Improvement desired: " << DESIRED_IMPROVEMENT << endl;
     print_achieved(achieved);
+
+    cout << endl;
+    cout << "**** Tours ****" << endl;
+
     cout << "Base tour " << endl;
     cout << *base_route << endl;
     cout << "\n";
@@ -92,9 +98,9 @@ void GeneticAlgorithm::generate_report(int iterations, double base_distance, dou
 
 void GeneticAlgorithm::print_achieved(bool achieved){
     if(!achieved){
-        cout << "Improvement not achieved" << endl;
+        cout << "Improvement not achieved!" << endl;
     }else{
-        cout << "Improvement achieved" << endl;
+        cout << "Improvement was achieved!" << endl;
     }
 
 }
