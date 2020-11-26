@@ -61,8 +61,8 @@ void Tour::swap(Tour &lhs, Tour &rhs) {
 }
 
 ostream &operator<<(ostream &os, const Tour &t) {
-    os << t.get_tour_distance() << endl;
-    os << t.get_fitness() << endl;
+    os << "Tour distance: " << t.get_tour_distance() << endl;
+    os << "Tour fitness: " << t.get_fitness() << endl;
     for(City* c: t.cities){
         os << *c << endl;
     }

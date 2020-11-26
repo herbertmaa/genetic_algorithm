@@ -14,17 +14,22 @@
 class GeneticAlgorithm{
 
 private:
-    double base_fitness = 0; // Starting fitness for the algorithm, initialized when object is created
+    double base_distance = 0; // Starting distance for the algorithm, initialized when object is created
     ToursManager * manager; // A pointer to the manager in charge of managing tours
+
+    /* Helper function to print the results of running the algorithm */
+    void generate_report(int iterations, double base_distance, double best_distance, bool achieved, Tour* base_route, Tour* best_route);
+    void print_achieved(bool achieved);
+
 public:
     static constexpr int ITERATIONS = 5000; // The number of iterations to go through
-    static constexpr double DESIRED_IMPROVEMENT = 0.35; // The desired improvement factor
+    static constexpr double DESIRED_IMPROVEMENT = 0.20; // The desired improvement factor
     /**
      * Creates a random list of cities and tours managed by the ToursManager
      */
     GeneticAlgorithm();
 
-    /* Destructor for deleting any dynmically allocated memory */
+    /* Destructor for deleting any dynamically allocated memory */
     ~GeneticAlgorithm();
 
     /**

@@ -66,4 +66,11 @@ public:
      * Helper method that picks and mutates a tour based on TO_BE_MUTATED percentage
      */
     void pick_and_mutate();
+
+    /**
+     * The caller of this method is responsible for deallocating memory for the tour generated from this method.
+     * @return - A new reference to the current elite tour.
+     */
+    Tour* get_copy_elite();
+
 };
