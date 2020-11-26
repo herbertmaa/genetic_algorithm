@@ -18,7 +18,7 @@ private:
     ToursManager * manager; // A pointer to the manager in charge of managing tours
 
     /* Helper function to print the results of running the algorithm */
-    void generate_report(int iterations, double base_distance, double best_distance, bool achieved, Tour* base_route, Tour* best_route);
+    void generate_report(int, double, double, double, bool, Tour*, Tour*);
     void print_achieved(bool achieved);
 
 public:
