@@ -68,6 +68,7 @@ public:
     void pick_and_mutate();
 
     /**
+     * Generates a copy of the current elite using dynamic memory
      * The caller of this method is responsible for deallocating memory for the tour generated from this method.
      * @return - A new reference to the current elite tour.
      */
