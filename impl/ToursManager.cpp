@@ -12,7 +12,6 @@ using std::endl;
 using std::cout;
 
 ToursManager::ToursManager() {
-
     // Allocate memory by creating new tours and putting tours into a priority queue
     for (int i = 0; i < NUMBER_OF_TOURS; ++i) {
         Tour *base_tour = new Tour();
@@ -46,7 +45,6 @@ Tour *ToursManager::select_parents(const vector<Tour *> &tours) {
 }
 
 void ToursManager::crossover() {
-
     // A vector containing our new tour list
     vector<Tour *> temp;
 
@@ -65,7 +63,6 @@ void ToursManager::crossover() {
         std::pair<Tour *, Tour *> pair;
 
         pair.first = select_parents(temp);
-
         pair.second = select_parents(temp);
 
         // Cross them to make a new Tour
@@ -85,7 +82,6 @@ void ToursManager::crossover() {
 }
 
 ToursManager::~ToursManager() {
-
     // Deallocate memory from creating Tours
     while (!base_tours.empty()) {
         delete base_tours.top();
@@ -113,7 +109,6 @@ void ToursManager::pick_and_mutate() {
         if (rand < TO_BE_MUTATED) {
             current->mutate();
         }
-
         // Push it into the new tour list
         new_tours.push(current);
     }
