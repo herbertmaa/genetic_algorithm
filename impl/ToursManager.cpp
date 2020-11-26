@@ -136,3 +136,8 @@ void ToursManager::print_tours() const {
     }
 }
 
+Tour* ToursManager::get_copy_elite() {
+    Tour* t = new Tour(*base_tours.top());
+    return t;
+}
+
