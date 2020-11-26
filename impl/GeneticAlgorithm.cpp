@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <random>
+#include <iomanip>
 #include "../headers/GeneticAlgorithm.hpp"
 #include "../headers/CityList.hpp"
 
@@ -78,8 +79,13 @@ GeneticAlgorithm::~GeneticAlgorithm() {
 }
 
 void GeneticAlgorithm::generate_report(int iterations, double base_distance, double best_distance, double improvement_amount, bool achieved, Tour* base_route, Tour* best_route) {
+
     cout << "**** Genetic Algorithm Report ****" << endl;
     cout << "Number of iterations " << iterations << endl;
+
+    std::cout.flags (std::ios::fixed);
+    cout.precision(3);
+
     cout << "Base distance:  " << base_distance << endl;
     cout << "Best distance:  " << best_distance << endl;
     cout << "Improvement amount: " << improvement_amount << endl;
