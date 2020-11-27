@@ -32,7 +32,7 @@ void City::swap(City &lhs, City &rhs) {
     std::swap(lhs.name, rhs.name);
 }
 
-void City::check_coords() {
+void City::check_coords() const {
     if (x < MIN_MAP_BOUNDARY || x > MAX_MAP_BOUNDARY || y < MIN_MAP_BOUNDARY || y > MAX_MAP_BOUNDARY) {
         throw std::invalid_argument("Coordinates must be within" + ::to_string(MIN_MAP_BOUNDARY) + " and " + ::to_string(MAX_MAP_BOUNDARY));
     }

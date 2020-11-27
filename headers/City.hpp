@@ -19,7 +19,7 @@ private:
      * Helper function to check coordinates being passed into a city.
      * If coordinates do not fall within the MIN and MAX MAP boundaries this function will throw an exception
      */
-    void check_coords();
+    void check_coords() const;
 
     /**
      * Helper function to swap two cities, swaps the two cities x and y coordinates and name
@@ -56,13 +56,13 @@ public:
     City& operator=(City city);
 
     /* Getter method for the x coordinate */
-    inline int get_x() { return x; }
+    inline int get_x() const { return x; }
 
     /* Getter method for the y coordinate */
-    inline int get_y() { return y; }
+    inline int get_y() const { return y; }
 
     /* Getter method for the name */
-    inline string get_name() { return name; }
+    inline string get_name() const { return name; }
 
     /**
      * Helper function to print the City

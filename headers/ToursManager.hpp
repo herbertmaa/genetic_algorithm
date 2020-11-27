@@ -17,7 +17,7 @@ typedef priority_queue<Tour *, std::vector<Tour *>, Comparator> queue; // A mini
 class ToursManager {
 private:
     static constexpr int PARENT_POOL_SIZE = 5; // The size of the subsets to generate
-    static constexpr int NUMBER_OF_TOURS = 30; // The number of tours that this manager will generate and manage
+    static constexpr int NUMBER_OF_TOURS = 32; // The number of tours that this manager will generate and manage
     static constexpr double TO_BE_MUTATED = 0.25; // The chance that the tour will have its cities mutated
     double base_distance = 0; // The lowest distance of all tours managed by the Tour Manager
     queue base_tours; // A priority queue to track tours
