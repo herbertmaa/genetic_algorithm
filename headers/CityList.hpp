@@ -16,7 +16,7 @@ private:
     ~CityList();
 
 public:
-    static constexpr int CITIES_IN_TOUR = 30;
+    static constexpr int CITIES_IN_TOUR = 32;
 
     /* Delete the assignment operator to prevents assignment of the instance*/
     void operator=(CityList const &) = delete;

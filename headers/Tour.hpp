@@ -28,7 +28,7 @@ private:
     void swap(Tour& lhs, Tour& rhs);
 
 public:
-    constexpr static double MUTATION_RATE = 0.5; // Chance that a city will get mutated within this Tour
+    constexpr static double MUTATION_RATE = 0.15; // Chance that a city will get mutated within this Tour
     constexpr static int RANDOM_SEED = 37; // A random number used within our fitness calculation
 
     /* Default constructor for creating our Tour of randomly organized Cities*/

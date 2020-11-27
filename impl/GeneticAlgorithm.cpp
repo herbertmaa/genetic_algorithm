@@ -12,6 +12,12 @@ using namespace std;
 
 GeneticAlgorithm::GeneticAlgorithm(): manager(new ToursManager) {
     this->base_distance = manager->get_elite_distance();
+
+    cout << "**** Before running Genetic Algorithm ****" << endl;
+    cout << endl;
+    cout << "Base tour distance: " << this->base_distance << endl;
+    cout << "Base tour fitness: " << manager->get_elite_fitness() << endl;
+    cout << endl;
 }
 
 void GeneticAlgorithm::run() {
@@ -82,9 +88,6 @@ void GeneticAlgorithm::generate_report(int iterations, double base_distance, dou
 
     cout << "**** Genetic Algorithm Report ****" << endl;
     cout << "Number of iterations " << iterations << endl;
-
-    std::cout.flags (std::ios::fixed);
-    cout.precision(3);
 
     cout << "Base distance:  " << base_distance << endl;
     cout << "Best distance:  " << best_distance << endl;
